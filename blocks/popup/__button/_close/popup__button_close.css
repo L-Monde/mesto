@@ -1,0 +1,11 @@
+.popup__button_close {
+    margin: 0 0 0 auto;
+    transform: translate(32px, -32px);
+    fill: rgb(255, 255, 255);
+    transition: fill 0.75s linear;
+}
+
+.popup__button_close:hover {
+    cursor: none;
+    fill: rgba(207, 207, 207, 0.418);
+}

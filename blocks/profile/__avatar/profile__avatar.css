@@ -1,0 +1,8 @@
+.profile__avatar {
+    max-height: 120px;
+    max-width: 160px;
+    padding: 0;
+    clip-path: circle(60px at center);
+    clip-path: circle(radius at x, y);
+    margin: 0;
+}

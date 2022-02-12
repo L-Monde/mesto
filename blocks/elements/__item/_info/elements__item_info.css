@@ -1,0 +1,7 @@
+.elements__item_info {
+    padding: 25px 20px 31px 21px;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}

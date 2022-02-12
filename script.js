@@ -1,6 +1,6 @@
-const buttonEdit = document.querySelector('.button_edit');
-const buttonClose = document.querySelector('.button_close');
-const buttonSubmit = document.querySelector('.form__submit');
+const buttonEdit = document.querySelector('.profile__button_edit');
+const buttonClose = document.querySelector('.popup__button_close');
+const buttonSubmit = document.querySelector('.popup__button_submit');
 
 function popupHide() {
     document.querySelector('.popup').classList.remove('popup_opened');
@@ -11,8 +11,8 @@ function popupDisplay() {
 }
 
 function profileUpdate() {
-    const formName = document.querySelector('.form__edit_name').value;
-    const formDesc = document.querySelector('.form__edit_desc').value;
+    const formName = document.querySelector('.popup__edit_name').value;
+    const formDesc = document.querySelector('.popup__edit_desc').value;
     document.querySelector('.profile__name').innerHTML = formName;
     document.querySelector('.profile__description').innerHTML = formDesc;
     document.querySelector('.popup').classList.remove('popup_opened');
