@@ -1,6 +1,6 @@
-.popup__edit_desc {
+.popup__edit-desc {
     border: none;
     border-bottom: 2px solid rgba(128, 128, 128, 0.781);
-    width: 83%;
-    padding: 30px 0 0 0;
+    position: relative;
+    top: 30px;
 }

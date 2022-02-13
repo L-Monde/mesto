@@ -1,0 +1,15 @@
+.popup__button-submit {
+    width: 83%;
+    height: 50px;
+    color: white;
+    background-color: black;
+    position: relative;
+    top: 78px;
+    border: none;
+    border-radius: 3px;
+    transition: background-color 0.3s linear;
+}
+
+.popup__button-submit:hover {
+    background-color: rgba(0, 0, 0, 0.808);
+}
