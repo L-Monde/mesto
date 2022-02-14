@@ -5,13 +5,20 @@
     border-radius: 10px;
     background-color: #fff;
     width: 430px;
-    height: 330px;
+    min-height: 330px;
     gap: 5px;
 }
 
 @media only screen and (max-width: 767px) {
     .popup__container {
         width: 282px;
-        height: 322px;
+        min-height: 322px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .popup__container {
+        width: 80%;
+        transform: translate(-25px, 0);
     }
 }

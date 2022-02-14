@@ -1,0 +1,13 @@
+.element__name {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 210px;
+    transform: translate(-1px, 6px);
+}

@@ -1,6 +1,6 @@
 .elements {
     margin: 0 auto;
-    padding: 36px 0 0 0;
+    padding: 2px 0 0 0;
     max-width: 880px;
     list-style: none;
     display: grid;
@@ -10,7 +10,7 @@
     row-gap: 20px;
 }
 
-@media only screen and (max-width: 1023px) and (min-width:768px) {
+@media only screen and (max-width: 1059px) and (min-width:768px) {
     .elements {
         max-width: 650px;
         grid-template-columns: 1fr 1fr;

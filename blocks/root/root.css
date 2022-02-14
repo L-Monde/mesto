@@ -1,7 +1,13 @@
 .root {
     margin: 0 auto;
-    width: 90%;
+    width: 68.5%;
     max-width: 880px;
     font-family: Inter, Arial, Helvetica, sans-serif;
     color: #FFFFFF;
+}
+
+@media only screen and (max-width: 400px) {
+    .root {
+        width: 88.5%;
+    }
 }

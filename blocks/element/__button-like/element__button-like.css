@@ -1,0 +1,21 @@
+.element__button-like {
+    padding: 0 0 1px 0;
+    background-color: #FFFFFF;
+    border: none;
+    width: 22px;
+    height: 19px;
+    background-image: url("../../../images/image\ \(1\).svg");
+    background-size: cover;
+    transition: background-image 0.12s linear;
+    transform: translate(-1px, 5px);
+}
+
+.element__button-like:hover {
+    cursor: pointer;
+    opacity: .4;
+}
+
+.element__button-like:active {
+    background-image: url("../../../images/image\ \(3\).svg");
+    opacity: 1;
+}

@@ -1,0 +1,13 @@
+.element {
+    width: 282px;
+    min-height: 361px;
+    color: black;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    overflow: hidden;
+    background-size: 100% 85%;
+    transform: translate(-2px, 1px);
+}

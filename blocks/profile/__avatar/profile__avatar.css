@@ -1,8 +1,11 @@
 .profile__avatar {
-    max-height: 120px;
-    max-width: 160px;
+    background-image: url(../../../images/Жак-Ив_Кусто.jpg);
+    background-size: 140%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    height: 120px;
+    width: 120px;
     padding: 0;
     clip-path: circle(60px at center);
-    clip-path: circle(radius at x, y);
     margin: 0;
 }

@@ -14,20 +14,10 @@
             <img class="header__logo" src="images/header-logo.svg" alt="Лого в форме территории РФ">
         </header>
         <main class="main">
-            <div class="popup">
-                <section class="popup__container">
-                    <div class="popup__button-close"></div>
-                    <h2 class="popup__heading">Редактировать профиль</h2>
-                    <form class="popup__form">
-                        <input type="text" class="popup__edit-name" placeholder="Имя">
-                        <input type="text" class="popup__edit-desc" placeholder="Краткое описание">
-                        <button type="submit" class="popup__button-submit">Сохранить</button>
-                    </form>
 
-                </section>
-            </div>
             <div class="profile">
-                <img class="profile__avatar" src="./images/Жак-Ив_Кусто.jpg" alt="Жак-Ив_Кусто">
+
+                <div class="profile__avatar"></div>
                 <section class="profile__info">
                     <div class="profile__container">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -35,51 +25,69 @@
                         </button>
                     </div>
 
-                    <p class="profile__description">Исследователь океана</p>
+                    <p class="profile__description">Исследователь океана</h4>
                 </section>
                 <button type="button" class="profile__button-add"></button>
             </div>
             <ul class="elements">
-                <li class="elements__item">
-                    <div class="elements__item-info">
-                        <p class="elements__item-name">Карачаевск</p>
-                        <button type="button" class="elements__item-button-like"></button>
+                <li class="element">
+                    <img src="./images/photo-grid-1.jpg">
+                    <div class="element__info">
+                        <h4 class="element__name">Карачаевск</h4>
+                        <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__item">
-                    <div class="elements__item-info">
-                        <p class="elements__item-name">Гора Эльбрус</p>
-                        <button type="button" class="elements__item-button-like"></button>
+                <li class="element">
+                    <img src="./images/photo-grid-2.jpg">
+                    <div class="element__info">
+                        <h4 class="element__name">Гора Эльбрус</h4>
+                        <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__item">
-                    <div class="elements__item-info">
-                        <p class="elements__item-name">Теберда, Теберда, голубая вода</p>
-                        <button type="button" class="elements__item-button-like"></button>
+                <li class="element">
+                    <img src="./images/photo-grid-3.jpg">
+                    <div class="element__info">
+                        <h4 class="element__name">Теберда, Теберда, голубая вода</h4>
+                        <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__item">
-                    <div class="elements__item-info">
-                        <p class="elements__item-name">Гора Эльбрус</p>
-                        <button type="button" class="elements__item-button-like"></button>
+                <li class="element">
+                    <img src="./images/photo-grid-2.jpg">
+                    <div class="element__info">
+                        <h4 class="element__name">Гора Эльбрус</h4>
+                        <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__item">
-                    <div class="elements__item-info">
-                        <p class="elements__item-name">Домбай</p>
-                        <button type="button" class="elements__item-button-like"></button>
+                <li class="element">
+                    <img src="./images/photo-grid-3.jpg">
+                    <div class="element__info">
+                        <h4 class="element__name">Домбай</h4>
+                        <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
-                <li class="elements__item">
-                    <div class="elements__item-info">
-                        <p class="elements__item-name">Карачаево-Черкессия</p>
-                        <button type="button" class="elements__item-button-like"></button>
+                <li class="element">
+                    <img src="./images/photo-grid-1.jpg">
+                    <div class="element__info">
+                        <h4 class="element__name">Карачаево-Черкессия</h4>
+                        <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
             </ul>
+            <div class="popup">
+                <article class="popup__container">
+                    <button type="button" class="popup__button-close" aria-label="close"></button>
+                    <h2 class="popup__heading">Редактировать профиль</h2>
+                    <form class="popup__form" name="popup-form" onSubmit="return false">
+                        <input type="text" class="popup__edit-name popup__form_name" name="form-name" placeholder="Имя">
+                        <input type="text" class="popup__edit-desc popup__form_description" name="form-description" placeholder="Краткое описание">
+                        <button type="submit" class="popup__button-submit">Сохранить</button>
+                    </form>
+
+                </article>
+            </div>
         </main>
         <footer class="footer">
-            <p class="footer__copyright">© 2020 Mesto Russia</p>
+            <p class="footer__copyright">© 2020 Mesto Russia</h4>
         </footer>
     </div>
     <script src="script.js"></script>

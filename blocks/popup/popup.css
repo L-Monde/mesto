@@ -2,13 +2,14 @@
     width: 100%;
     max-width: 880px;
     height: 100%;
-    position: absolute;
+    position: fixed;
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.418);
     color: black;
+    transform: translate(-1px, -1072px);
 }
 
 .popup_opened {
