@@ -4,8 +4,8 @@ const form = document.querySelector('.popup__form');
 const popup = document.querySelector('.popup');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
-const formName = document.querySelector('.popup__form_name');
-const formDesc = document.querySelector('.popup__form_description');
+const formName = document.querySelector('.popup__edit_name');
+const formDesc = document.querySelector('.popup__edit_description');
 
 function popupHide() {
     popup.classList.remove('popup_opened');
