@@ -20,12 +20,12 @@
 
 @media only screen and (max-width: 767px) {
     .popup {
-        transform: translate(-16.5%, -2705px);
+        transform: translate(-16.5%, -2717px);
     }
 }
 
 @media only screen and (max-width: 400px) {
     .popup {
-        transform: translate(-5%, -2705px);
+        transform: translate(-5%, -2718px);
     }
 }

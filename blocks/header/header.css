@@ -3,10 +3,10 @@
     border-bottom: 1px solid rgba(84, 84, 84, 0.575);
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 360px) {
     .header {
-        width: 100vw;
+        width: 85vw;
         padding: 28px 0 31px 21px;
-        transform: translate(-20px, 0);
+        transform: translate(-10px, 0);
     }
 }
