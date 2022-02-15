@@ -5,8 +5,8 @@
 
 @media only screen and (max-width: 360px) {
     .header {
-        width: 85vw;
-        padding: 28px 0 31px 21px;
-        transform: translate(-10px, 0);
+        width: 100vw;
+        padding: 28px 0 31px 27px;
+        transform: translate(-20px, 0);
     }
 }
