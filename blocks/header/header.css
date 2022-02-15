@@ -2,3 +2,11 @@
     padding: 45px 0 35px;
     border-bottom: 1px solid rgba(84, 84, 84, 0.575);
 }
+
+@media only screen and (max-width: 767px) {
+    .header {
+        width: 100vw;
+        padding: 28px 0 31px 21px;
+        transform: translate(-20px, 0);
+    }
+}

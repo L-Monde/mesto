@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mesto</title>
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./pages/index.css">
 </head>
 
 <body class="body">
@@ -25,48 +25,48 @@
                         </button>
                     </div>
 
-                    <p class="profile__description">Исследователь океана</h4>
+                    <p class="profile__description">Исследователь океана</p>
                 </section>
                 <button type="button" class="profile__button-add"></button>
             </div>
             <ul class="elements">
                 <li class="element">
-                    <img src="./images/photo-grid-1.jpg" alt="Полуразвалившаяся, утопающая в зелени, каменная церковь">
+                    <img class="element__image" src="./images/photo-grid-1.jpg" alt="Полуразвалившаяся, утопающая в зелени, каменная церковь">
                     <div class="element__info">
                         <h4 class="element__name">Карачаевск</h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
                 <li class="element">
-                    <img src="./images/photo-grid-2.jpg" alt="Отдалённый вид высокой горы">
+                    <img class="element__image" src="./images/photo-grid-2.jpg" alt="Отдалённый вид высокой горы">
                     <div class="element__info">
                         <h4 class="element__name">Гора Эльбрус</h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
                 <li class="element">
-                    <img src="./images/photo-grid-3.jpg" alt="Нет прекрасней твоих тополей">
+                    <img class="element__image" src="./images/photo-grid-3.jpg" alt="Нет прекрасней твоих тополей">
                     <div class="element__info">
                         <h4 class="element__name">Теберда, Теберда, голубая вода</h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
                 <li class="element">
-                    <img src="./images/photo-grid-2.jpg" alt="Отдалённый вид высокой горы">
+                    <img class="element__image" src="./images/photo-grid-2.jpg" alt="Отдалённый вид высокой горы">
                     <div class="element__info">
                         <h4 class="element__name">Гора Эльбрус</h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
                 <li class="element">
-                    <img src="./images/photo-grid-3.jpg" alt="Постепенно лишающиеся деревьев горные склоны">
+                    <img class="element__image" src="./images/photo-grid-3.jpg" alt="Постепенно лишающиеся деревьев горные склоны">
                     <div class="element__info">
                         <h4 class="element__name">Домбай</h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </li>
                 <li class="element">
-                    <img src="./images/photo-grid-1.jpg" alt="Полуразвалившаяся, утопающая в зелени, каменная церковь">
+                    <img class="element__image" src="./images/photo-grid-1.jpg" alt="Полуразвалившаяся, утопающая в зелени, каменная церковь">
                     <div class="element__info">
                         <h4 class="element__name">Карачаево-Черкессия</h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
@@ -77,9 +77,9 @@
                 <article class="popup__container">
                     <button type="button" class="popup__button-close" aria-label="close"></button>
                     <h2 class="popup__heading">Редактировать профиль</h2>
-                    <form class="popup__form" name="popup-form" onSubmit="return false">
-                        <input type="text" class="popup__edit-name popup__form_name" name="form-name" placeholder="Имя">
-                        <input type="text" class="popup__edit-desc popup__form_description" name="form-description" placeholder="Краткое описание">
+                    <form class="popup__form" name="popup-form">
+                        <input type="text" class="popup__edit popup__form_name" name="form-name" placeholder="Имя">
+                        <input type="text" class="popup__edit popup__form_description" name="form-description" placeholder="Краткое описание">
                         <button type="submit" class="popup__button-submit">Сохранить</button>
                     </form>
 
@@ -87,10 +87,10 @@
             </div>
         </main>
         <footer class="footer">
-            <p class="footer__copyright">© 2020 Mesto Russia</h4>
+            <p class="footer__copyright">© 2020 Mesto Russia</p>
         </footer>
     </div>
-    <script src="script.js"></script>
+    <script src="./scripts/script.js"></script>
 </body>
 
 </html>

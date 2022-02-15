@@ -1,6 +1,6 @@
 .popup {
     width: 100%;
-    max-width: 880px;
+    max-width: 900px;
     height: 100%;
     position: fixed;
     display: none;
@@ -9,9 +9,23 @@
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.418);
     color: black;
-    transform: translate(-1px, -1072px);
+    transform: translate(-2px, -1072px);
 }
 
-.popup_opened {
-    display: flex;
+@media only screen and (max-width: 1120px) and (min-width: 767px) {
+    .popup {
+        transform: translate(-15%, -1452px);
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .popup {
+        transform: translate(-16.5%, -2705px);
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .popup {
+        transform: translate(-5%, -2705px);
+    }
 }

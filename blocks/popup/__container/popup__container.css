@@ -13,12 +13,12 @@
     .popup__container {
         width: 282px;
         min-height: 322px;
+        transform: translate(-5%, 0)
     }
 }
 
 @media only screen and (max-width: 400px) {
     .popup__container {
-        width: 80%;
-        transform: translate(-25px, 0);
+        max-width: 282px;
     }
 }
