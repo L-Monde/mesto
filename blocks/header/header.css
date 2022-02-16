@@ -1,12 +1,4 @@
 .header {
-    padding: 45px 0 35px;
-    border-bottom: 1px solid rgba(84, 84, 84, 0.575);
-}
-
-@media only screen and (max-width: 360px) {
-    .header {
-        width: 100vw;
-        padding: 28px 0 31px 27px;
-        transform: translate(-20px, 0);
-    }
+    padding: 46px 0 41px;
+    border-bottom: 1px solid rgba(84, 84, 84, 1);
 }
