@@ -3,6 +3,7 @@ const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonAdd = document.querySelector('.profile__button-add');
 const buttonClose = document.querySelector('.popup__button-close');
 const buttonAddClose = document.querySelector('.popup__add-button-close')
+const buttonImageClose = document.querySelector('.popup__image-button-close');
 
 //profile popup variables
 const form = document.querySelector('.popup__form');
@@ -19,6 +20,8 @@ const placeName = document.querySelector('.popup__edit_type_place-name');
 const placeImage = document.querySelector('.popup__edit_type_place-picture');
 const elements = document.querySelector('.elements');
 const cards = elements.querySelectorAll('.element');
+//image popup
+const popupImage = document.querySelector('.popup__image');
 
 //profile popup functions
 function popupDisplay() {
@@ -65,6 +68,11 @@ function contentUpdate() {
     cardsCheck();
     popupAddHide();
 };
+
+
+function popupImageHide() {
+    popupImage.classList.remove('popup_opened');
+}
 
 //cards array, page content loads from here
 const initialCards = [{
@@ -115,6 +123,21 @@ function cardDelete() {
     console.log(target);
     target.parentElement.style.display = "none";
 }
+
+function cardLike() {
+    const target = event.target;
+    console.log(target);
+    target.classList.toggle('element__button-like_pressed');
+}
+
+function imageShow() {
+    const target = event.target;
+    console.log(target);
+    document.querySelector('.popup__image-pic').src = target.src;
+    popupImage.classList.add('popup_opened');
+}
+
+buttonImageClose.addEventListener('click', popupImageHide);
 
 buttonAdd.addEventListener('click', () => {
     popupAddDisplay()
