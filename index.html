@@ -30,45 +30,52 @@
                 <button type="button" class="profile__button-add"></button>
             </section>
             <section class="elements">
+                <!---->
                 <div class="element">
-                    <img class="element__image" src="./images/photo-grid-1.jpg" alt="Полуразвалившаяся, утопающая в зелени, каменная церковь">
+                    <img class="element__image" src="" alt="Полуразвалившаяся, утопающая в зелени, каменная церковь">
+                    <button type="button" class="element__button-delete" onclick="cardDelete()"></button>
                     <div class="element__info">
-                        <h4 class="element__name">Карачаевск</h4>
+                        <h4 class="element__name"></h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__image" src="./images/photo-grid-2.jpg" alt="Отдалённый вид высокой горы">
+                    <img class="element__image" src="" alt="Отдалённый вид высокой горы">
+                    <button type="button" class="element__button-delete" onclick="cardDelete()"></button>
                     <div class="element__info">
-                        <h4 class="element__name">Гора Эльбрус</h4>
+                        <h4 class="element__name"></h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__image" src="./images/photo-grid-3.jpg" alt="Нет прекрасней твоих тополей">
+                    <img class="element__image" src="" alt="Нет прекрасней твоих тополей">
+                    <button type="button" class="element__button-delete" onclick="cardDelete()"></button>
                     <div class="element__info">
                         <h4 class="element__name">Теберда, Теберда, голубая вода</h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__image" src="./images/photo-grid-2.jpg" alt="Отдалённый вид высокой горы">
+                    <img class="element__image" src="" alt="Отдалённый вид высокой горы">
+                    <button type="button" class="element__button-delete" onclick="cardDelete()"></button>
                     <div class="element__info">
-                        <h4 class="element__name">Гора Эльбрус</h4>
+                        <h4 class="element__name"></h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__image" src="./images/photo-grid-3.jpg" alt="Постепенно лишающиеся деревьев горные склоны">
+                    <img class="element__image" src="" alt="Постепенно лишающиеся деревьев горные склоны">
+                    <button type="button" class="element__button-delete" onclick="cardDelete()"></button>
                     <div class="element__info">
-                        <h4 class="element__name">Домбай</h4>
+                        <h4 class="element__name"></h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__image" src="./images/photo-grid-1.jpg" alt="Полуразвалившаяся, утопающая в зелени, каменная церковь">
+                    <img class="element__image" src="" alt="Полуразвалившаяся, утопающая в зелени, каменная церковь">
+                    <button type="button" class="element__button-delete" onclick="cardDelete()"></button>
                     <div class="element__info">
-                        <h4 class="element__name">Карачаево-Черкессия</h4>
+                        <h4 class="element__name"></h4>
                         <button type="button" class="element__button-like" aria-label="like"></button>
                     </div>
                 </div>
@@ -82,6 +89,19 @@
                         <input type="text" class="popup__edit popup__edit_type_name" name="form-name" placeholder="Имя">
                         <input type="text" class="popup__edit popup__edit_type_description" name="form-description" placeholder="Краткое описание">
                         <button type="submit" class="popup__button-submit">Сохранить</button>
+                    </form>
+
+                </article>
+            </div>
+            <div class="popup popup__add">
+                <article class="popup__container">
+                    <button type="button" class="popup__button-close popup__add-button-close" aria-label="close"></button>
+                    <h2 class="popup__heading">Новое место</h2>
+                    <form class="popup__form popup__form-add" name="popup-form_add">
+                        <!---->
+                        <input type="text" class="popup__edit popup__edit_type_place-name" name="place-name" placeholder="Название">
+                        <input type="text" class="popup__edit popup__edit_type_place-picture" name="form-description" placeholder="Ссылка на картинку">
+                        <button type="submit" class="popup__button-submit">Создать</button>
                     </form>
 
                 </article>
