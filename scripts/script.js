@@ -13,7 +13,7 @@ const profileDescription = document.querySelector('.profile__description');
 const formName = document.querySelector('.popup__edit_type_name');
 const formDesc = document.querySelector('.popup__edit_type_description');
 //content popup variables
-const popupAdd = document.querySelector('.popup__add');
+const popupAdd = document.querySelector('.popup-add');
 const formAdd = document.querySelector('.popup__form-add')
 const newElement = { name: '', link: '' };
 const placeName = document.querySelector('.popup__edit_type_place-name');
@@ -21,7 +21,7 @@ const placeImage = document.querySelector('.popup__edit_type_place-picture');
 const elements = document.querySelector('.elements');
 const cards = elements.querySelectorAll('.element');
 //image popup
-const popupImage = document.querySelector('.popup__image');
+const popupImage = document.querySelector('.popup-image');
 
 //profile popup functions
 function popupDisplay() {
