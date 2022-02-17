@@ -1,0 +1,10 @@
+.popup__image-pic {
+    max-width: 85%;
+    max-height: 85%;
+}
+
+@media only screen and (max-width: 400px) {
+    .popup__image-pic {
+        max-width: 85%;
+    }
+}

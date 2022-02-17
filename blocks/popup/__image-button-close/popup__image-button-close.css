@@ -1,13 +1,14 @@
 .popup__image-button-close {
     background-color: rgba(255, 255, 255, 0);
     border: none;
+    margin: 0 0 0 auto;
     width: 32px;
     height: 32px;
-    margin: 0 0 0 auto;
-    transform: translate(840px, -540px);
+    transform: translate(350px, -38px);
     fill: rgb(255, 255, 255);
     background-image: url("../../../images/button-close.svg");
     transition: background-image 0.75s linear;
+    position: absolute;
 }
 
 .popup__image-button-close:hover {
@@ -15,9 +16,15 @@
     background-image: url("../../../images/button-close-hover.svg");
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 915px) {
     .popup__image-button-close {
-        transform: translate(0, -32px);
+        transform: translate(39vw, -38px);
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .popup__image-button-close {
+        transform: translate(32vw, -25px);
         width: 20px;
         height: 20px;
         background-size: contain;
