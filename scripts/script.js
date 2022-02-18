@@ -56,24 +56,14 @@ function displayPopupAdd() {
 
 function updateContent() {
     event.preventDefault();
-    const cards = elements.querySelectorAll('.element');
-    const cardsTrue = Array.from(cards);
     newElement.name = placeName.value;
     newElement.link = placeImage.value;
-    if (initialCards.length > 5) {
-        initialCards.pop();
+    createCard(x = newElement);
+    const cards = elements.querySelectorAll('.element');
+    const cardsTrue = Array.from(cards);
+    if (cardsTrue.length > 5) {
+        cardsTrue[6].style.display = 'none';
     };
-    let blank = { name: '', link: '' };
-    initialCards.unshift(blank);
-    blank.name = newElement.name;
-    blank.link = newElement.link;
-    if (cards.length < 6) {
-        const newCard = cardTemplate.cloneNode(true);
-        newCard.querySelector('.element__name').textContent = initialCards[0].name;
-        newCard.querySelector('.element__image').src = initialCards[0].link;
-        cardsContainer.appendChild(newCard);
-    };
-    checkCards();
     hidePopup();
 }
 
@@ -109,26 +99,22 @@ const initialCards = [{
 
 function generateContent() {
     for (i = 0; i < initialCards.length; i++) {
-        const newCard = cardTemplate.cloneNode(true);
-        newCard.querySelector('.element__name').textContent = initialCards[i].name;
-        newCard.querySelector('.element__image').src = initialCards[i].link;
-        cardsContainer.appendChild(newCard);
+        createCard(x = initialCards[i]);
     }
 }
 
-//compares info from the markup with the array, then pushes array info into markup
-function checkCards() {
-    const cards = elements.querySelectorAll('.element');
-    cards.forEach(function(item, index) {
-        const nameAlt = initialCards[index].name;
-        const imageSrcAlt = initialCards[index].link;
-        item.querySelector('.element__name').textContent = nameAlt;
-        item.querySelector('.element__image').src = imageSrcAlt;
-        if (nameAlt == '') {
-            item.style.display = 'none';
-        }
-    });
+function createCard() {
+    const newCard = cardTemplate.cloneNode(true);
+    newCard.querySelector('.element__name').textContent = x.name;
+    newCard.querySelector('.element__image').src = x.link;
+    newCard.querySelector('.element__image').addEventListener('click', displayImagePopup);
+    newCard.querySelector('.element__button-delete').addEventListener('click', deleteCard);
+    newCard.querySelector('.element__button-like').addEventListener('click', likeCard);
+    cardsContainer.prepend(newCard);
 }
+
+//compares info from the markup with the array, then pushes array info into markup
+
 //image button functions
 function deleteCard() {
     const cards = elements.querySelectorAll('.element');
@@ -166,6 +152,9 @@ formAdd.addEventListener('submit', updateContent);
 buttonEdit.addEventListener('click', displayProfilePopup);
 form.addEventListener('submit', updateProfile);
 
+buttonClose.addEventListener('click', hidePopup);
+buttonAddClose.addEventListener('click', hidePopup);
+buttonImageClose.addEventListener('click', hidePopup);
 
 document.onload = generateContent();
 
