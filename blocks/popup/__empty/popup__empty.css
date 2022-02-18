@@ -1,0 +1,21 @@
+.popup__empty {
+    transform: translate(0, -400px);
+}
+
+@media only screen and (max-width: 1120px) and (min-width: 767px) {
+    .popup__empty {
+        transform: translate(-100px, -400px);
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .popup__empty {
+        transform: translate(-80px, -530px);
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .popup__empty {
+        transform: translate(-10px, -530px);
+    }
+}

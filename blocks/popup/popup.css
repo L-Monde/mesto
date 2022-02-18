@@ -14,18 +14,18 @@
 
 @media only screen and (max-width: 1120px) and (min-width: 767px) {
     .popup {
-        transform: translate(-15%, -1452px);
+        transform: translate(-15%, -1459px);
     }
 }
 
 @media only screen and (max-width: 767px) {
     .popup {
-        transform: translate(-16.5%, -2717px);
+        transform: translate(-16.5%, -2724px);
     }
 }
 
 @media only screen and (max-width: 400px) {
     .popup {
-        transform: translate(-5%, -2718px);
+        transform: translate(-5%, -2724px);
     }
 }
