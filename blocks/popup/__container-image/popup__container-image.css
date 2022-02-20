@@ -6,9 +6,9 @@
     background-color: transparent;
     min-height: 330px;
     gap: 5px;
-    max-width: 85%;
+    width: 100%;
     min-width: 278px;
-    max-height: 60%;
+    max-height: 80%;
     overflow: hidden;
 }
 

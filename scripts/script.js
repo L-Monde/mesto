@@ -24,51 +24,6 @@ const placeImage = document.querySelector('.popup__edit_type_place-picture');
 const elements = document.querySelector('.elements');
 //image popup
 const popupImage = document.querySelector('.popup-image');
-
-//profile popup functions
-function displayProfilePopup() {
-    copy();
-    popup.classList.add('popup_opened');
-}
-
-function hidePopup() {
-    const target = event.target.parentElement;
-    target.parentElement.classList.remove('popup_opened');
-}
-
-function copy() {
-    formName.value = profileName.textContent;
-    formDesc.value = profileDescription.textContent;
-}
-
-function updateProfile() {
-    event.preventDefault();
-    profileName.textContent = formName.value;
-    profileDescription.textContent = formDesc.value;
-    hidePopup();
-}
-
-//content popup functions
-function displayPopupAdd() {
-    popupAdd.classList.add('popup_opened');
-}
-
-
-function updateContent() {
-    event.preventDefault();
-    newElement.name = placeName.value;
-    newElement.link = placeImage.value;
-    createCard(x = newElement);
-    const cards = elements.querySelectorAll('.element');
-    const cardsTrue = Array.from(cards);
-    if (cardsTrue.length > 5) {
-        cardsTrue[6].style.display = 'none';
-    };
-    hidePopup();
-}
-
-
-
 //cards array, page content loads from here
 const initialCards = [{
         name: 'Архыз',
@@ -97,23 +52,57 @@ const initialCards = [{
 ];
 
 
-function generateContent() {
-    for (i = 0; i < initialCards.length; i++) {
-        createCard(x = initialCards[i]);
-    }
+function openPopup() {
+    y.classList.add('popup_opened');
+}
+
+function closePopup() {
+    const target = event.target.parentElement;
+    target.parentElement.classList.remove('popup_opened');
+}
+
+function copy() {
+    formName.value = profileName.textContent;
+    formDesc.value = profileDescription.textContent;
+}
+
+function updateProfile() {
+    event.preventDefault();
+    profileName.textContent = formName.value;
+    profileDescription.textContent = formDesc.value;
+    closePopup();
+}
+
+function updateContent() {
+    event.preventDefault();
+    newElement.name = placeName.value;
+    newElement.link = placeImage.value;
+    cardsContainer.prepend(createCard(x = newElement));
+    closePopup();
 }
 
 function createCard() {
     const newCard = cardTemplate.cloneNode(true);
     newCard.querySelector('.element__name').textContent = x.name;
     newCard.querySelector('.element__image').src = x.link;
-    newCard.querySelector('.element__image').addEventListener('click', displayImagePopup);
+    newCard.querySelector('.element__image').alt = x.name;
+    newCard.querySelector('.element__image').addEventListener('click', () => {
+        const target = event.target;
+        document.querySelector('.popup__image-pic').src = target.src;
+        popupImage.querySelector('.popup__image-text').textContent = target.alt;
+        openPopup(y = popupImage);
+    });
     newCard.querySelector('.element__button-delete').addEventListener('click', deleteCard);
     newCard.querySelector('.element__button-like').addEventListener('click', likeCard);
-    cardsContainer.prepend(newCard);
+    return newCard
+}
+//generates content, invoked only when page is loaded
+function generateContent() {
+    for (i = 0; i < initialCards.length; i++) {
+        cardsContainer.append(createCard(x = initialCards[i]));
+    }
 }
 
-//compares info from the markup with the array, then pushes array info into markup
 
 //image button functions
 function deleteCard() {
@@ -123,7 +112,7 @@ function deleteCard() {
     const parent = target.parentElement;
     const index = cardsTrue.indexOf(parent)
     parent.parentElement.removeChild(parent);
-    initialCards.splice([index], 1);
+    cardsTrue.splice([index], 1);
 }
 
 function likeCard() {
@@ -132,11 +121,6 @@ function likeCard() {
     target.classList.toggle('element__button-like_pressed');
 }
 
-function displayImagePopup() {
-    const target = event.target;
-    document.querySelector('.popup__image-pic').src = target.src;
-    popupImage.classList.add('popup_opened');
-}
 //content and profile button functions
 buttonAdd.addEventListener('click', () => {
     const cards = elements.querySelectorAll('.element');
@@ -145,38 +129,24 @@ buttonAdd.addEventListener('click', () => {
     } else {
         popupAdd.classList.remove('popup__empty')
     }
-    displayPopupAdd();
+    openPopup(y = popupAdd);
 });
 formAdd.addEventListener('submit', updateContent);
 
-buttonEdit.addEventListener('click', displayProfilePopup);
+buttonEdit.addEventListener('click', () => {
+    copy();
+    openPopup(y = popup);
+});
 form.addEventListener('submit', updateProfile);
 
-buttonClose.addEventListener('click', hidePopup);
-buttonAddClose.addEventListener('click', hidePopup);
-buttonImageClose.addEventListener('click', hidePopup);
+buttonClose.addEventListener('click', closePopup);
+buttonAddClose.addEventListener('click', closePopup);
+buttonImageClose.addEventListener('click', closePopup);
 
 document.onload = generateContent();
 
 
-/*function cardDelete() {
-    const a = Math.floor(Math.random() * 6);
-    const b = Math.floor(Math.random() * 6);
-    console.log(a);
-    initialCards[a].name = initialCards[b].name;
-}
-
-
-cardsContainer.insertAdjacentHTML('beforeend',
-            ` <div class="element">
-        <img class="element__image" src="${initialCards[i].link}" alt="" onclick="displayImagePopup()">
-        <button type="button" class="element__button-delete" onclick="cardDelete()"></button>
-        <div class="element__info">
-            <h4 class="element__name">${initialCards[i].name}</h4>
-            <button type="button" class="element__button-like" aria-label="like" onclick="cardLike()"></button>
-        </div>
-    </div>`
-        )
+/*
 
 
 */
