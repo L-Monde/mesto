@@ -55,7 +55,7 @@ function openPopup() {
 }
 
 function closePopup() {
-    const target = event.target.parentElement;
+    let target = event.target.parentElement;
     target.parentElement.classList.remove('popup_opened');
 }
 
@@ -80,12 +80,12 @@ function updateContent() {
 }
 
 function createCard() {
-    const newCard = cardTemplate.cloneNode(true);
+    let newCard = cardTemplate.cloneNode(true);
     newCard.querySelector('.element__name').textContent = newElement.name;
     newCard.querySelector('.element__image').src = newElement.link;
     newCard.querySelector('.element__image').alt = newElement.name;
     newCard.querySelector('.element__image').addEventListener('click', () => {
-        const target = event.target;
+        let target = event.target;
         document.querySelector('.popup__image-pic').src = target.src;
         popupImage.querySelector('.popup__image-text').textContent = target.alt;
         popup = popupImage;
@@ -106,24 +106,24 @@ function generateContent() {
 
 //image button functions
 function deleteCard() {
-    const cards = elements.querySelectorAll('.element');
-    const cardsTrue = Array.from(cards);
-    const target = event.target;
-    const parent = target.parentElement;
-    const index = cardsTrue.indexOf(parent)
+    let cards = elements.querySelectorAll('.element');
+    let cardsTrue = Array.from(cards);
+    let target = event.target;
+    let parent = target.parentElement;
+    let index = cardsTrue.indexOf(parent)
     parent.parentElement.removeChild(parent);
     cardsTrue.splice([index], 1);
 }
 
 function likeCard() {
-    const target = event.target;
+    let target = event.target;
     console.log(target);
     target.classList.toggle('element__button-like_pressed');
 }
 
 //content and profile button functions
 buttonAdd.addEventListener('click', () => {
-    const cards = elements.querySelectorAll('.element');
+    let cards = elements.querySelectorAll('.element');
     if (cards.length == 0) {
         popupAdd.classList.add('popup__empty')
     } else {
