@@ -89,7 +89,7 @@ function createCard() {
         document.querySelector('.popup__image-pic').src = target.src;
         popupImage.querySelector('.popup__image-text').textContent = target.alt;
         popup = popupImage;
-        openPopup();
+        openPopup(popupImage);
     });
     newCard.querySelector('.element__button-delete').addEventListener('click', deleteCard);
     newCard.querySelector('.element__button-like').addEventListener('click', likeCard);
@@ -137,7 +137,7 @@ formAdd.addEventListener('submit', updateContent);
 buttonEdit.addEventListener('click', () => {
     copy();
     popup = popupProfile;
-    openPopup();
+    openPopup(popupProfile);
 });
 form.addEventListener('submit', updateProfile);
 
