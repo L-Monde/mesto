@@ -1,7 +1,7 @@
 //buttons
 const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonAdd = document.querySelector('.profile__button-add');
-const buttonClose = document.querySelector('.popup__button-close');
+const buttonProfileClose = document.querySelector('.popup__profile-button-close');
 const buttonAddClose = document.querySelector('.popup__add-button-close');
 const buttonImageClose = document.querySelector('.popup__image-button-close');
 //content template
@@ -50,11 +50,11 @@ const initialCards = [{
     }
 ];
 
-function openPopup() {
+function openPopup(popup) {
     popup.classList.add('popup_opened');
 }
 
-function closePopup() {
+function closePopup(popup) {
     let target = event.target.parentElement;
     target.parentElement.classList.remove('popup_opened');
 }
@@ -88,7 +88,6 @@ function createCard() {
         let target = event.target;
         document.querySelector('.popup__image-pic').src = target.src;
         popupImage.querySelector('.popup__image-text').textContent = target.alt;
-        popup = popupImage;
         openPopup(popupImage);
     });
     newCard.querySelector('.element__button-delete').addEventListener('click', deleteCard);
@@ -129,19 +128,17 @@ buttonAdd.addEventListener('click', () => {
     } else {
         popupAdd.classList.remove('popup__empty')
     }
-    popup = popupAdd;
     openPopup(popupAdd);
 });
 formAdd.addEventListener('submit', updateContent);
 
 buttonEdit.addEventListener('click', () => {
     copy();
-    popup = popupProfile;
     openPopup(popupProfile);
 });
 form.addEventListener('submit', updateProfile);
 
-buttonClose.addEventListener('click', closePopup);
+buttonProfileClose.addEventListener('click', closePopup);
 buttonAddClose.addEventListener('click', closePopup);
 buttonImageClose.addEventListener('click', closePopup);
 
