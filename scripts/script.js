@@ -78,7 +78,7 @@ function updateContent() {
     cardsContainer.prepend(createCard());
     closePopup();
 }
-
+//creates a card template, each has name, image src and alt
 function createCard() {
     let newCard = cardTemplate.cloneNode(true);
     newCard.querySelector('.element__name').textContent = newElement.name;
@@ -103,7 +103,7 @@ function generateContent() {
 }
 
 
-//image button functions
+//deletes the card in which the button is activated
 function deleteCard() {
     let cards = elements.querySelectorAll('.element');
     let cardsTrue = Array.from(cards);
