@@ -15,7 +15,7 @@ const element = document.querySelector('.element');
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('.element-template').content;
 //profile popup variables
-const form = document.querySelector('.popup__form');
+const formProfile = document.querySelector('.popup__form');
 const popupProfile = document.querySelector('.popup-profile-edit');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
