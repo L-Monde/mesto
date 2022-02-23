@@ -80,13 +80,13 @@ function updateProfile() {
 
 function updateContent() {
     event.preventDefault();
-    newElement.name = placeName.value;
-    newElement.link = placeImage.value;
-    cardsContainer.prepend(createCard());
+    const newElement = { name: placeName.value, link: placeImage.value }
+    cardsContainer.prepend(createCard(newElement));
+    formAdd.reset();
     closePopup(popupAdd);
 }
 //creates a card template, each has name, image src and alt
-function createCard() {
+function createCard(newElement) {
     const newCard = cardTemplate.cloneNode(true);
     newCard.querySelector('.element__name').textContent = newElement.name;
     newCard.querySelector('.element__image').src = newElement.link;
@@ -105,8 +105,8 @@ function createCard() {
 //generates content, invoked only when page is loaded
 function generateContent() {
     for (i = 0; i < initialCards.length; i++) {
-        newElement = initialCards[i];
-        cardsContainer.append(createCard());
+        const newElement = initialCards[i];
+        cardsContainer.append(createCard(newElement));
     }
 }
 
