@@ -138,7 +138,7 @@ buttonEdit.addEventListener('click', () => {
     copy();
     openPopup(popupProfile);
 });
-form.addEventListener('submit', updateProfile);
+formProfile.addEventListener('submit', updateProfile);
 
 buttonProfileClose.addEventListener('click', () => closePopup(popupProfile));
 buttonAddClose.addEventListener('click', () => closePopup(popupAdd));
