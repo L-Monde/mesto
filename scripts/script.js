@@ -1,3 +1,9 @@
+/*Я бы хотел извиниться за то,
+что несколько раз отправлял работу почти без изменений.
+Из-за какой-то неполадки отмеченные ошибки не отображались в работе, сейчас всё в порядке.
+Позвольте выразить мою огромную благодарность за ваше многократное терпение.*/
+
+
 //buttons
 const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonAdd = document.querySelector('.profile__button-add');
@@ -23,6 +29,8 @@ const placeImage = document.querySelector('.popup__edit_type_place-picture');
 const elements = document.querySelector('.elements');
 //image popup
 const popupImage = document.querySelector('.popup-image');
+const popupPicture = document.querySelector('.popup__image-pic');
+const popupText = popupImage.querySelector('.popup__image-text');
 //cards array, page content loads from here
 const initialCards = [{
         name: 'Архыз',
@@ -55,8 +63,7 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-    let target = event.target.parentElement;
-    target.parentElement.classList.remove('popup_opened');
+    popup.classList.remove('popup_opened');
 }
 
 function copy() {
@@ -68,7 +75,7 @@ function updateProfile() {
     event.preventDefault();
     profileName.textContent = formName.value;
     profileDescription.textContent = formDesc.value;
-    closePopup();
+    closePopup(popupProfile);
 }
 
 function updateContent() {
@@ -76,18 +83,19 @@ function updateContent() {
     newElement.name = placeName.value;
     newElement.link = placeImage.value;
     cardsContainer.prepend(createCard());
-    closePopup();
+    closePopup(popupAdd);
 }
 //creates a card template, each has name, image src and alt
 function createCard() {
-    let newCard = cardTemplate.cloneNode(true);
+    const newCard = cardTemplate.cloneNode(true);
     newCard.querySelector('.element__name').textContent = newElement.name;
     newCard.querySelector('.element__image').src = newElement.link;
     newCard.querySelector('.element__image').alt = newElement.name;
     newCard.querySelector('.element__image').addEventListener('click', () => {
-        let target = event.target;
-        document.querySelector('.popup__image-pic').src = target.src;
-        popupImage.querySelector('.popup__image-text').textContent = target.alt;
+        const target = event.target;
+        popupPicture.src = target.src;
+        popupPicture.alt = target.alt;
+        popupText.textContent = target.alt;
         openPopup(popupImage);
     });
     newCard.querySelector('.element__button-delete').addEventListener('click', deleteCard);
@@ -105,24 +113,18 @@ function generateContent() {
 
 //deletes the card in which the button is activated
 function deleteCard() {
-    let cards = elements.querySelectorAll('.element');
-    let cardsTrue = Array.from(cards);
-    let target = event.target;
-    let parent = target.parentElement;
-    let index = cardsTrue.indexOf(parent)
-    parent.parentElement.removeChild(parent);
-    cardsTrue.splice([index], 1);
+    event.target.closest('.element').remove()
 }
 
 function likeCard() {
-    let target = event.target;
+    const target = event.target;
     console.log(target);
     target.classList.toggle('element__button-like_pressed');
 }
 
 //content and profile button functions
 buttonAdd.addEventListener('click', () => {
-    let cards = elements.querySelectorAll('.element');
+    const cards = elements.querySelectorAll('.element');
     if (cards.length == 0) {
         popupAdd.classList.add('popup__empty')
     } else {
@@ -138,9 +140,9 @@ buttonEdit.addEventListener('click', () => {
 });
 form.addEventListener('submit', updateProfile);
 
-buttonProfileClose.addEventListener('click', closePopup);
-buttonAddClose.addEventListener('click', closePopup);
-buttonImageClose.addEventListener('click', closePopup);
+buttonProfileClose.addEventListener('click', () => closePopup(popupProfile));
+buttonAddClose.addEventListener('click', () => closePopup(popupAdd));
+buttonImageClose.addEventListener('click', () => closePopup(popupImage));
 
 document.onload = generateContent();
 
