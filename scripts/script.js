@@ -54,10 +54,24 @@ const initialCards = [{
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    popup.addEventListener('click', (event) => {
+        if (event.target === event.currentTarget) {
+            closePopup(popup)
+        }
+    })
+    document.addEventListener('keydown', escapeButtonClose)
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', escapeButtonClose)
+}
+
+function escapeButtonClose(event) {
+    if (event.key === 'Escape') {
+        const activePopup = document.querySelector('.popup_opened')
+        closePopup(activePopup)
+    }
 }
 
 function copy() {
@@ -116,15 +130,12 @@ function likeCard() {
     target.classList.toggle('element__button-like_pressed');
 }
 
-//content and profile button functions
+//content and profile button functions    
 buttonAdd.addEventListener('click', () => {
-    const cards = elements.querySelectorAll('.element');
-    if (cards.length == 0) {
-        popupAdd.classList.add('popup__empty')
-    } else {
-        popupAdd.classList.remove('popup__empty')
-    }
+    console.log(popupAdd.classList);
     openPopup(popupAdd);
+
+    console.log(popupAdd.classList);
 });
 formAdd.addEventListener('submit', updateContent);
 
@@ -137,6 +148,7 @@ formProfile.addEventListener('submit', updateProfile);
 buttonProfileClose.addEventListener('click', () => closePopup(popupProfile));
 buttonAddClose.addEventListener('click', () => closePopup(popupAdd));
 buttonImageClose.addEventListener('click', () => closePopup(popupImage));
+
 
 document.onload = generateContent();
 
