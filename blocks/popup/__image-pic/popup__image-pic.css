@@ -1,3 +1,5 @@
 .popup__image-pic {
     max-height: 80vh;
+    width: 100%;
+    border-radius: 10px;
 }

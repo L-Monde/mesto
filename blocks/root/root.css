@@ -6,6 +6,12 @@
     color: #FFFFFF;
 }
 
+@media only screen and (max-width: 880px) {
+    .root {
+        width: 78.5%;
+    }
+}
+
 @media only screen and (max-width: 400px) {
     .root {
         width: 88.5%;

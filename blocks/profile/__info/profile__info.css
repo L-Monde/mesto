@@ -1,4 +1,11 @@
 .profile__info {
     padding: 0 0 0 30px;
-    max-width: 336px;
+    max-width: 350px;
+}
+
+@media only screen and (max-width: 880px) {
+    .profile__info {
+        text-align: center;
+        padding: 0;
+    }
 }

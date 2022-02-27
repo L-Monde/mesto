@@ -65,6 +65,11 @@ function openPopup(popup) {
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', escapeButtonClose)
+    popup.removeEventListener('click', (event) => {
+        if (event.target === event.currentTarget) {
+            closePopup(popup)
+        }
+    })
 }
 
 function escapeButtonClose(event) {
@@ -132,7 +137,8 @@ function likeCard() {
 
 //content and profile button functions    
 buttonAdd.addEventListener('click', () => {
-    console.log(popupAdd.classList);
+    placeName.value = '';
+    placeImage.value = '';
     openPopup(popupAdd);
 
     console.log(popupAdd.classList);

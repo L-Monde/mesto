@@ -53,7 +53,7 @@
                         <span id="profileName-error" class="popup__error"></span>
                         <input id="profileDesc" type="text" class="popup__edit popup__edit_type_description" name="form-description" placeholder="Краткое описание" minlength="2" maxlength="200" required>
                         <span id="profileDesc-error" class="popup__error"></span>
-                        <button type="submit" class="popup__button-submit">Сохранить</button>
+                        <button type="submit" class="popup__button-submit popup__button-submit_disabled" disabled>Сохранить</button>
                     </form>
 
                 </article>
@@ -68,7 +68,7 @@
                         <span id="newPlaceName-error" class="popup__error"></span>
                         <input id="newPlaceDesc" type="url" class="popup__edit popup__edit_type_place-picture" name="place-description" placeholder="Ссылка на картинку" required>
                         <span id="newPlaceDesc-error" class="popup__error"></span>
-                        <button type="submit" class="popup__button-submit">Создать</button>
+                        <button type="submit" class="popup__button-submit popup__button-submit_disabled" disabled>Создать</button>
                     </form>
 
                 </article>
@@ -78,8 +78,8 @@
                 <article class="popup__container-image">
                     <button type="button" class="popup__button-close popup__image-button-close" aria-label="close"></button>
                     <img class="popup__image-pic" src="./images/photo-grid-1.jpg" alt="тут должна быть картинка">
+                    <p class="popup__image-text"></p>
                 </article>
-                <p class="popup__image-text"></p>
             </div>
         </main>
         <footer class="footer">
