@@ -1,3 +1,6 @@
+//Здраствуйте. Я постарался исправить все ошибки, надеюсь у меня получилось. 
+//Если нет, укажите их, пожалуйста, если вам не трудно
+
 const enableValidation = (elements) => {
     const formList = document.querySelectorAll(elements.formSelector);
     console.log(formList)
