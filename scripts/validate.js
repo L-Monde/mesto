@@ -22,6 +22,9 @@ function setEventListeners(formList, elements) {
             checkInputValidity(editItem, elements)
             toggleButtonState(editItem, buttonElement);
         })
+        editItem.addEventListener('mouseover', function() {
+            toggleButtonState(editItem, buttonElement);
+        })
     })
 }
 //this function checks the input. If validation is unsuccessful, a message is displayed 
@@ -56,6 +59,7 @@ function hasInvalidInput(inputList) {
 
 //if at least one of the inputs is invalid, the button won't work
 function toggleButtonState(editItem, buttonElement) {
+    console.log(editItem.validity)
     if (!editItem.validity.valid) {
         buttonElement.classList.add('popup__button-submit_disabled')
         buttonElement.setAttribute('disabled', '')
@@ -69,6 +73,6 @@ enableValidation({
     editSelector: '.popup__edit',
     submitButtonSelector: '.popup__button-submit',
     inactiveButtonClass: 'popup__button-submit_disabled',
-    inputErrorClass: 'popup__input_type_error',
+    inputErrorClass: 'popup__edit_error',
     errorClass: 'popup__error_visible'
 });
