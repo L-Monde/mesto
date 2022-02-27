@@ -1,31 +1,33 @@
 .popup {
     width: 100%;
     max-width: 900px;
-    height: 100%;
+    min-height: 100%;
     position: fixed;
+    top: 0;
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.527);
-    color: black;
-    transform: translate(-2px, -1078px);
+    color: rgb(255, 255, 255);
+    transform: translate(-2px, 0);
+    transition: .7s;
 }
 
 @media only screen and (max-width: 1120px) and (min-width: 767px) {
     .popup {
-        transform: translate(-15%, -1452px);
+        transform: translate(-15%, 0);
     }
 }
 
 @media only screen and (max-width: 767px) {
     .popup {
-        transform: translate(-16.5%, -2717px);
+        transform: translate(-13.5%, 0);
     }
 }
 
 @media only screen and (max-width: 400px) {
     .popup {
-        transform: translate(-5%, -2718px);
+        transform: translate(-3%, 0);
     }
 }
