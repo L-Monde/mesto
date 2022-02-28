@@ -4,11 +4,12 @@
     margin: 0 0 0 auto;
     width: 32px;
     height: 32px;
-    transform: translate(32vw, -38px);
     fill: rgb(255, 255, 255);
     background-image: url("../../../images/button-close.svg");
     transition: background-image 0.75s linear;
-    position: absolute;
+    position: relative;
+    right: 0;
+    transform: translate(15px, 0);
 }
 
 .popup__image-button-close:hover {
@@ -18,9 +19,9 @@
 
 @media only screen and (max-width: 400px) {
     .popup__image-button-close {
+        transform: translate(0, -15px);
         width: 20px;
         height: 20px;
         background-size: contain;
-        transform: translate(40vw, -25px);
     }
 }

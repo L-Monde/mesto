@@ -21,6 +21,7 @@ const formAdd = document.querySelector('.popup__form-add');
 const placeName = document.querySelector('.popup__edit_type_place-name');
 const placeImage = document.querySelector('.popup__edit_type_place-picture');
 const elements = document.querySelector('.elements');
+const buttonAddSubmit = formAdd.querySelector('.popup__button-submit')
 
 //image popup
 const popupImage = document.querySelector('.popup-image');
@@ -141,8 +142,7 @@ buttonAdd.addEventListener('click', () => {
     placeName.value = '';
     placeImage.value = '';
     openPopup(popupAdd);
-
-    console.log(popupAdd.classList);
+    buttonAddSubmit.setAttribute('disabled', '');
 });
 formAdd.addEventListener('submit', updateContent);
 

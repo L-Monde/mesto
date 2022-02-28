@@ -62,12 +62,11 @@ function hasInvalidInput(inputList) {
 
 //if at least one of the inputs is invalid, the button won't work
 function toggleButtonState(editItem, buttonElement) {
-    console.log(editItem.validity)
     if (!editItem.validity.valid) {
-        buttonElement.classList.add('popup__button-submit_disabled')
+        buttonElement.classList.add('popup__button-submit:disabled')
         buttonElement.setAttribute('disabled', '')
     } else {
-        buttonElement.classList.remove('popup__button-submit_disabled')
+        buttonElement.classList.remove('popup__button-submit:disabled')
         buttonElement.removeAttribute('disabled')
     }
 }
@@ -75,7 +74,7 @@ enableValidation({
     formSelector: '.popup__form',
     editSelector: '.popup__edit',
     submitButtonSelector: '.popup__button-submit',
-    inactiveButtonClass: 'popup__button-submit_disabled',
+    inactiveButtonClass: 'popup__button-submit:disabled',
     inputErrorClass: 'popup__edit_error',
     errorClass: 'popup__error_visible'
 });

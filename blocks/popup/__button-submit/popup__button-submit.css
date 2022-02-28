@@ -10,11 +10,18 @@
     border: none;
     border-radius: 3px;
     transition: background-color 0.3s linear;
-    transform: translate(0, 30px);
+    transform: translate(0, 10px);
 }
 
 .popup__button-submit:hover {
     background-color: rgba(0, 0, 0, 0.808);
+}
+
+.popup__button-submit:disabled {
+    opacity: .2;
+    border: 2px solid black;
+    background-color: #fff;
+    color: black;
 }
 
 @media only screen and (max-width: 400px) {
