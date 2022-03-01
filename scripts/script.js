@@ -5,12 +5,11 @@ const buttonProfileClose = document.querySelector('.popup__profile-button-close'
 const buttonAddClose = document.querySelector('.popup__add-button-close');
 const buttonImageClose = document.querySelector('.popup__image-button-close');
 //content template
-const element = document.querySelector('.element');
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('.element-template').content;
 //profile popup variables
-const formProfile = document.querySelector('.popup__form');
 const popupProfile = document.querySelector('.popup-profile-edit');
+const formProfile = document.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const formName = document.querySelector('.popup__edit_type_name');
@@ -56,11 +55,7 @@ const initialCards = [{
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    popup.addEventListener('click', (event) => {
-        if (event.target === event.currentTarget) {
-            closePopup(popup)
-        }
-    })
+
     document.addEventListener('keydown', escapeButtonClose)
 }
 
@@ -81,7 +76,7 @@ function escapeButtonClose(event) {
     }
 }
 
-function copy() {
+function copyProfilePopup() {
     formName.value = profileName.textContent;
     formDesc.value = profileDescription.textContent;
 }
@@ -96,17 +91,18 @@ function updateProfile() {
 function updateContent() {
     event.preventDefault();
     const newElement = { name: placeName.value, link: placeImage.value }
-    cardsContainer.prepend(createCard(newElement));
+    addCardToEnd(newElement)
     formAdd.reset();
     closePopup(popupAdd);
 }
 //creates a card template, each has name, image src and alt
 function createCard(newElement) {
     const newCard = cardTemplate.cloneNode(true);
+    const newCardImage = newCard.querySelector('.element__image');
     newCard.querySelector('.element__name').textContent = newElement.name;
-    newCard.querySelector('.element__image').src = newElement.link;
-    newCard.querySelector('.element__image').alt = newElement.name;
-    newCard.querySelector('.element__image').addEventListener('click', () => {
+    newCardImage.src = newElement.link;
+    newCardImage.alt = newElement.name;
+    newCardImage.addEventListener('click', () => {
         const target = event.target;
         popupPicture.src = target.src;
         popupPicture.alt = target.alt;
@@ -121,10 +117,17 @@ function createCard(newElement) {
 function generateContent() {
     for (i = 0; i < initialCards.length; i++) {
         const newElement = initialCards[i];
-        cardsContainer.append(createCard(newElement));
+        addCardToBeginning(newElement)
     }
 }
+//card addition functions
+function addCardToBeginning(newElement) {
+    cardsContainer.append(createCard(newElement));
+}
 
+function addCardToEnd(newElement) {
+    cardsContainer.prepend(createCard(newElement));
+}
 
 //deletes the card in which the button is activated
 function deleteCard() {
@@ -133,11 +136,15 @@ function deleteCard() {
 
 function likeCard() {
     const target = event.target;
-    console.log(target);
     target.classList.toggle('element__button-like_pressed');
 }
 
-//content and profile button functions    
+//content and profile button functions 
+popupAdd.addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) {
+        closePopup(popupAdd)
+    }
+})
 buttonAdd.addEventListener('click', () => {
     placeName.value = '';
     placeImage.value = '';
@@ -146,11 +153,22 @@ buttonAdd.addEventListener('click', () => {
 });
 formAdd.addEventListener('submit', updateContent);
 
+popupProfile.addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) {
+        closePopup(popupProfile)
+    }
+})
 buttonEdit.addEventListener('click', () => {
-    copy();
+    copyProfilePopup();
     openPopup(popupProfile);
 });
 formProfile.addEventListener('submit', updateProfile);
+
+popupImage.addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) {
+        closePopup(popupImage)
+    }
+})
 
 buttonProfileClose.addEventListener('click', () => closePopup(popupProfile));
 buttonAddClose.addEventListener('click', () => closePopup(popupAdd));

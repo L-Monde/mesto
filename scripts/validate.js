@@ -1,16 +1,12 @@
-//Здраствуйте. Я постарался исправить все ошибки, надеюсь у меня получилось. 
-//Если нет, укажите их, пожалуйста, если вам не трудно
+//Спасибо вам огромное!
 
 const enableValidation = (elements) => {
     const formList = document.querySelectorAll(elements.formSelector);
-    console.log(formList)
     formList.forEach((form) => {
         form.addEventListener('submit', function(event) {
             event.preventDefault();
         })
-    })
-    formList.forEach((formList) => {
-        setEventListeners(formList, elements)
+        setEventListeners(form, elements)
     })
 }
 
@@ -18,16 +14,15 @@ const enableValidation = (elements) => {
 
 //this function should add the event listeners
 function setEventListeners(formList, elements) {
-    const editList = formList.querySelectorAll(elements.editSelector)
+    const editList = Array.from(formList.querySelectorAll(elements.editSelector));
     const buttonElement = formList.querySelector(elements.submitButtonSelector)
+    toggleButtonState(editList, buttonElement);
     editList.forEach((editItem) => {
         editItem.addEventListener('input', function() {
             checkInputValidity(editItem, elements)
-            toggleButtonState(editItem, buttonElement);
+            toggleButtonState(editList, buttonElement);
         })
-        editItem.addEventListener('mouseover', function() {
-            toggleButtonState(editItem, buttonElement);
-        })
+
     })
 }
 //this function checks the input. If validation is unsuccessful, a message is displayed 
@@ -51,9 +46,9 @@ function hideInputError(editItem, elements) {
     errorElement.textContent = ''
 }
 
-function hasInvalidInput(inputList) {
-    return inputList.some(inputElement => {
-        return !inputElement.validity.valid
+function hasInvalidInput(editList) {
+    return editList.some(editItem => {
+        return !editItem.validity.valid
     })
 }
 
@@ -61,12 +56,12 @@ function hasInvalidInput(inputList) {
 
 
 //if at least one of the inputs is invalid, the button won't work
-function toggleButtonState(editItem, buttonElement) {
-    if (!editItem.validity.valid) {
-        buttonElement.classList.add('popup__button-submit:disabled')
+function toggleButtonState(editList, buttonElement) {
+    if (hasInvalidInput(editList)) {
+        buttonElement.classList.add(elements.inactiveButtonClass)
         buttonElement.setAttribute('disabled', '')
     } else {
-        buttonElement.classList.remove('popup__button-submit:disabled')
+        buttonElement.classList.remove(elements.inactiveButtonClass)
         buttonElement.removeAttribute('disabled')
     }
 }

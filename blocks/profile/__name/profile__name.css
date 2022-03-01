@@ -8,6 +8,9 @@
     line-height: 48px;
     transition: font-size 1s linear;
     max-width: 300px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media only screen and (max-width: 960px) and (min-width:880px) {
