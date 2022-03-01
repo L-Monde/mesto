@@ -62,11 +62,7 @@ function openPopup(popup) {
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', escapeButtonClose)
-    popup.removeEventListener('click', (event) => {
-        if (event.target === event.currentTarget) {
-            closePopup(popup)
-        }
-    })
+
 }
 
 function escapeButtonClose(event) {
