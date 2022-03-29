@@ -108,7 +108,7 @@ function addCardToBeginning(newCard) {
 }
 
 function addCardToEnd(newElement) {
-    const newCard = createCardMarkup(initialCards[i], '.element-template').createCard()
+    const newCard = createCardMarkup(newElement, '.element-template').createCard()
     cardsContainer.prepend(newCard);
 }
 
@@ -123,7 +123,7 @@ buttonAdd.addEventListener('click', () => {
     placeName.value = '';
     placeImage.value = '';
     openPopup(popupAdd);
-    buttonAddSubmit.setAttribute('disabled', '');
+    //buttonAddSubmit.setAttribute('disabled', '');
 });
 formAdd.addEventListener('submit', updateContent);
 
