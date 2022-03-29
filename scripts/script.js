@@ -71,8 +71,6 @@ const initialCards = [{
     }
 ];
 
-
-
 function copyProfilePopup() {
     formName.value = profileName.textContent;
     formDesc.value = profileDescription.textContent;
@@ -92,31 +90,15 @@ function updateContent() {
     formAdd.reset();
     closePopup(popupAdd);
 }
-//creates a card template, each has name, image src and alt
-/*function createCard(newElement) {
-    const newCard = cardTemplate.cloneNode(true);
-    const newCardImage = newCard.querySelector('.element__image');
-    newCard.querySelector('.element__name').textContent = newElement.name;
-    newCardImage.src = newElement.link;
-    newCardImage.alt = newElement.name;
-    newCardImage.addEventListener('click', () => {
-        const target = event.target;
-        popupPicture.src = target.src;
-        popupPicture.alt = target.alt;
-        popupText.textContent = target.alt;
-        openPopup(popupImage);
-    });
-    newCard.querySelector('.element__button-delete').addEventListener('click', deleteCard);
-    newCard.querySelector('.element__button-like').addEventListener('click', likeCard);
-    return newCard
-} */
-
 //generates content, invoked only when page is loaded
+function createCardMarkup(data, cardTemplateSelector) {
+    const card = new Card(data, cardTemplateSelector);
+    return card;
+}
+
 function generateContent() {
     for (var i = 0; i < initialCards.length; i++) {
-        const card = new Card(initialCards[i], '.element-template')
-        const newCard = card.createCard()
-        console.log(newCard)
+        const newCard = createCardMarkup(initialCards[i], '.element-template').createCard()
         addCardToBeginning(newCard)
     }
 }
@@ -126,12 +108,12 @@ function addCardToBeginning(newCard) {
 }
 
 function addCardToEnd(newElement) {
-    const card = new Card(newElement, '.element-template')
-    cardsContainer.prepend(card.createCard());
+    const newCard = createCardMarkup(initialCards[i], '.element-template').createCard()
+    cardsContainer.prepend(newCard);
 }
 
 
-//content and profile button functions 
+//content popup listeners
 popupAdd.addEventListener('click', (event) => {
     if (event.target === event.currentTarget) {
         closePopup(popupAdd)
@@ -145,6 +127,7 @@ buttonAdd.addEventListener('click', () => {
 });
 formAdd.addEventListener('submit', updateContent);
 
+//profile popup listeners
 popupProfile.addEventListener('click', (event) => {
     if (event.target === event.currentTarget) {
         closePopup(popupProfile)
@@ -156,6 +139,7 @@ buttonEdit.addEventListener('click', () => {
 });
 formProfile.addEventListener('submit', updateProfile);
 
+//image popup listeners
 popupImage.addEventListener('click', (event) => {
     if (event.target === event.currentTarget) {
         closePopup(popupImage)

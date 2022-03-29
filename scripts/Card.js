@@ -27,8 +27,8 @@ export class Card {
     }
 
     _deleteCard = () => {
-        console.log(this._newCard)
         this._newCard.remove()
+        this._newCard = null
     }
     _setEventListeners() {
         const deleteButton = this._newCard.querySelector('.element__button-delete');

@@ -14,7 +14,7 @@ export class FormValidator {
     }
 
 
-    _toggleButtonState() {
+    toggleButtonState() {
         const { inactiveButtonClass } = this._settings
 
         if (this._hasInvalidInput()) {
@@ -57,11 +57,11 @@ export class FormValidator {
     }
 
     _setEventListeners() {
-        this._toggleButtonState();
+        this.toggleButtonState();
         this._editList.forEach((editItem) => {
             editItem.addEventListener('input', () => {
                 this._checkInputValidity(editItem)
-                this._toggleButtonState();
+                this.toggleButtonState();
             })
 
         })
