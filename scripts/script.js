@@ -93,6 +93,7 @@ function updateContent() {
 //generates content, invoked only when page is loaded
 function createCardMarkup(data, cardTemplateSelector) {
     const card = new Card(data, cardTemplateSelector);
+    card.createCard();
     return card;
 }
 
@@ -123,7 +124,7 @@ buttonAdd.addEventListener('click', () => {
     placeName.value = '';
     placeImage.value = '';
     openPopup(popupAdd);
-    //buttonAddSubmit.setAttribute('disabled', '');
+    newCardValidator.toggleButtonState()
 });
 formAdd.addEventListener('submit', updateContent);
 
