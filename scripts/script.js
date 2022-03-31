@@ -1,3 +1,6 @@
+//Огромное спасибо за вашу работу и терпение!
+
+
 import { openPopup, closePopup } from './utils.js';
 import { popupImage, popupPicture, popupText } from './constants.js'
 import { FormValidator } from './FormValidator.js'
@@ -93,13 +96,12 @@ function updateContent() {
 //generates content, invoked only when page is loaded
 function createCardMarkup(data, cardTemplateSelector) {
     const card = new Card(data, cardTemplateSelector);
-    card.createCard();
-    return card;
+    return card.createCard();
 }
 
 function generateContent() {
     for (var i = 0; i < initialCards.length; i++) {
-        const newCard = createCardMarkup(initialCards[i], '.element-template').createCard()
+        const newCard = createCardMarkup(initialCards[i], '.element-template')
         addCardToBeginning(newCard)
     }
 }
@@ -109,7 +111,7 @@ function addCardToBeginning(newCard) {
 }
 
 function addCardToEnd(newElement) {
-    const newCard = createCardMarkup(newElement, '.element-template').createCard()
+    const newCard = createCardMarkup(newElement, '.element-template')
     cardsContainer.prepend(newCard);
 }
 
