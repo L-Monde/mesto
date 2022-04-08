@@ -1,10 +1,10 @@
-//Огромное спасибо за вашу работу и терпение!
-
-
-import { openPopup, closePopup } from './utils.js';
-import { popupImage, popupPicture, popupText } from './constants.js'
-import { FormValidator } from './FormValidator.js'
-import { Card } from './Card.js'
+import { openPopup, closePopup } from './scripts/utils.js';
+import { popupImage, popupPicture, popupText } from './scripts/constants.js'
+import { FormValidator } from './scripts/FormValidator.js'
+import { Card } from './scripts/Card.js'
+import { Popup } from './scripts/Popup.js'
+import { Section } from './scripts/Section.js';
+import './pages/index.css'
 
 //buttons
 const buttonEdit = document.querySelector('.profile__button-edit');
@@ -29,7 +29,6 @@ const placeName = document.querySelector('.popup__edit_type_place-name');
 const placeImage = document.querySelector('.popup__edit_type_place-picture');
 const elements = document.querySelector('.elements');
 const buttonAddSubmit = formAdd.querySelector('.popup__button-submit')
-    //image popup
 
 //validator variables and objects
 const config = {
