@@ -1,10 +1,13 @@
-import { openPopup, closePopup } from './scripts/utils.js';
-import { popupImage, popupPicture, popupText } from './scripts/constants.js'
-import { FormValidator } from './scripts/FormValidator.js'
-import { Card } from './scripts/Card.js'
-import { Popup } from './scripts/Popup.js'
-import { Section } from './scripts/Section.js';
-import './pages/index.css'
+//import { openPopup, closePopup } from './scripts/utils.js';
+//import { popupImage, popupPicture, popupText } from './scripts/constants.js'
+import { FormValidator } from './components/FormValidator.js'
+import { Card } from './components/Card.js'
+import { Popup } from './components/Popup.js'
+import { PopupWithForm } from './components/PopupWithForm.js'
+import { Section } from './components/Section.js';
+import './pages/index.css';
+import { PopupWithImage } from './components/PopupWithImage.js';
+import { UserInfo } from './components/UserInfo.js';
 
 //buttons
 const buttonEdit = document.querySelector('.profile__button-edit');
@@ -16,19 +19,21 @@ const buttonImageClose = document.querySelector('.popup__image-button-close');
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('.element-template').content;
 //profile popup variables
-const popupProfile = document.querySelector('.popup-profile-edit');
+const popupProfile = new PopupWithForm('.popup-profile-edit', updateProfile);
 const formProfile = document.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const formName = document.querySelector('.popup__edit_type_name');
 const formDesc = document.querySelector('.popup__edit_type_description');
 //content popup variables
-const popupAdd = document.querySelector('.popup-add');
+const popupAdd = new PopupWithForm('.popup-add', updateContent);
 const formAdd = document.querySelector('.popup__form-add');
 const placeName = document.querySelector('.popup__edit_type_place-name');
 const placeImage = document.querySelector('.popup__edit_type_place-picture');
-const elements = document.querySelector('.elements');
-const buttonAddSubmit = formAdd.querySelector('.popup__button-submit')
+//image popup stuff
+const popupImage = new PopupWithImage('.popup-image')
+    //user information
+const userInfo = new UserInfo({ nameSelector: '.profile__name', descriptionSelector: '.profile__description' })
 
 //validator variables and objects
 const config = {
@@ -72,88 +77,66 @@ const initialCards = [{
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+//this class fills the container with cards created by the class's callback
+const section = new Section({ items: initialCards, renderer: addCardToBeginning }, '.elements');
+section.renderItems()
 
-function copyProfilePopup() {
-    formName.value = profileName.textContent;
-    formDesc.value = profileDescription.textContent;
-}
-
-function updateProfile() {
-    event.preventDefault();
-    profileName.textContent = formName.value;
-    profileDescription.textContent = formDesc.value;
-    closePopup(popupProfile);
-}
-
-function updateContent() {
-    event.preventDefault();
-    const newElement = { name: placeName.value, link: placeImage.value }
-    addCardToEnd(newElement)
-    formAdd.reset();
-    closePopup(popupAdd);
-}
-//generates content, invoked only when page is loaded
+//card creation functions
 function createCardMarkup(data, cardTemplateSelector) {
     const card = new Card(data, cardTemplateSelector);
     return card.createCard();
 }
 
-function generateContent() {
-    for (var i = 0; i < initialCards.length; i++) {
-        const newCard = createCardMarkup(initialCards[i], '.element-template')
-        addCardToBeginning(newCard)
-    }
-}
-//card addition functions
-function addCardToBeginning(newCard) {
-    cardsContainer.append(newCard);
+
+function addCardToBeginning(data) {
+    const newCard = createCardMarkup(data, '.element-template');
+    newCard.querySelector('.element__image').addEventListener('click', () => { popupImage.open(newCard) })
+    return newCard
 }
 
-function addCardToEnd(newElement) {
-    const newCard = createCardMarkup(newElement, '.element-template')
-    cardsContainer.prepend(newCard);
+//form submit functions
+function updateProfile() {
+    event.preventDefault();
+    userInfo.setUserInfo(formName.value, formDesc.value)
+    popupProfile.close();
+}
+
+function updateContent() {
+    event.preventDefault();
+    const newElement = { name: placeName.value, link: placeImage.value }
+    cardsContainer.prepend(addCardToBeginning(newElement))
+    popupAdd.close();
+}
+
+function copyProfilePopup(name, info) {
+    formName.value = name;
+    formDesc.value = info;
 }
 
 
 //content popup listeners
-popupAdd.addEventListener('click', (event) => {
-    if (event.target === event.currentTarget) {
-        closePopup(popupAdd)
-    }
-})
+popupAdd.setEventListeners();
 buttonAdd.addEventListener('click', () => {
-    placeName.value = '';
-    placeImage.value = '';
-    openPopup(popupAdd);
+    popupAdd.open();
     newCardValidator.toggleButtonState()
 });
-formAdd.addEventListener('submit', updateContent);
+
 
 //profile popup listeners
-popupProfile.addEventListener('click', (event) => {
-    if (event.target === event.currentTarget) {
-        closePopup(popupProfile)
-    }
-})
+popupProfile.setEventListeners()
 buttonEdit.addEventListener('click', () => {
-    copyProfilePopup();
-    openPopup(popupProfile);
+    const { name, info } = userInfo.getUserInfo()
+    console.log({ name, info })
+    copyProfilePopup(name, info);
+    popupProfile.open();
+    popupProfile.setEventListeners()
 });
-formProfile.addEventListener('submit', updateProfile);
 
 //image popup listeners
-popupImage.addEventListener('click', (event) => {
-    if (event.target === event.currentTarget) {
-        closePopup(popupImage)
-    }
-})
-
-buttonProfileClose.addEventListener('click', () => closePopup(popupProfile));
-buttonAddClose.addEventListener('click', () => closePopup(popupAdd));
-buttonImageClose.addEventListener('click', () => closePopup(popupImage));
+popupImage.setEventListeners()
 
 
-document.onload = generateContent();
+
 
 
 /*

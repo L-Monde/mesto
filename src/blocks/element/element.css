@@ -7,7 +7,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     overflow: hidden;
     background-size: 100% 85%;
     transform: translate(-2px, 1px);
