@@ -6,14 +6,15 @@ export class PopupWithForm extends Popup {
         super(popupSelector)
         this.formSubmit = formSubmit
         this.form = this._popup.querySelector('.popup__form')
+        this._inputs = Array.from(this.form.querySelectorAll('.popup__edit'))
     }
 
     _getInputValues() {
-        const inputs = Array.from(this.form.querySelectorAll('.popup__edit'))
-        const values = []
-        inputs.forEach((input) => {
-            values[input] = input.value
+        const values = {}
+        this._inputs.forEach((input) => {
+            values[input.name] = input.value
         })
+        return values
     }
 
     setEventListeners() {
@@ -23,8 +24,6 @@ export class PopupWithForm extends Popup {
 
     close() {
         super.close()
-        Array.from(this.form.querySelectorAll('.popup__edit')).forEach((input) => {
-            input.value = ''
-        })
+        this.form.reset()
     }
 }

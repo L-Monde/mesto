@@ -1,11 +1,9 @@
-import { openPopup, closePopup, escapeButtonClose } from './utils.js'
-import { popupImage, popupPicture, popupText } from './constants.js'
-
 export class Card {
-    constructor(data, cardTemplateSelector) {
+    constructor(data, cardTemplateSelector, handleImageClick) {
         this._cardTemplate = document.querySelector(cardTemplateSelector).content.querySelector('.element')
         this._name = data.name;
         this._link = data.link;
+        this._handleImageClick = handleImageClick
     }
 
     createCard() {
@@ -30,17 +28,18 @@ export class Card {
         this._newCard.remove()
         this._newCard = null
     }
+
     _setEventListeners() {
         const deleteButton = this._newCard.querySelector('.element__button-delete');
-
-        this._newCardImage.addEventListener('click', () => {
-            popupPicture.src = this._link;
-            popupPicture.alt = this._name;
-            popupText.textContent = this._name;
-            openPopup(popupImage);
-        });
         deleteButton.addEventListener('click', this._deleteCard);
         this._likeButton.addEventListener('click', this._likeCard);
+        this._newCardImage.addEventListener('click', this._handleImageClick)
     }
 
 }
+/*
+popupPicture.src = this._link;
+popupPicture.alt = this._name;
+popupText.textContent = this._name;
+openPopup(popupImage);
+*/

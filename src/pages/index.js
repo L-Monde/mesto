@@ -1,28 +1,20 @@
-//import { openPopup, closePopup } from './scripts/utils.js';
-//import { popupImage, popupPicture, popupText } from './scripts/constants.js'
-import { FormValidator } from './components/FormValidator.js'
-import { Card } from './components/Card.js'
-import { Popup } from './components/Popup.js'
-import { PopupWithForm } from './components/PopupWithForm.js'
-import { Section } from './components/Section.js';
-import './pages/index.css';
-import { PopupWithImage } from './components/PopupWithImage.js';
-import { UserInfo } from './components/UserInfo.js';
+import { FormValidator } from '../components/FormValidator.js'
+import { Card } from '../components/Card.js'
+import { Popup } from '../components/Popup.js'
+import { PopupWithForm } from '../components/PopupWithForm.js'
+import { Section } from '../components/Section.js';
+import './index.css';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { UserInfo } from '../components/UserInfo.js';
 
 //buttons
 const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonAdd = document.querySelector('.profile__button-add');
-const buttonProfileClose = document.querySelector('.popup__profile-button-close');
-const buttonAddClose = document.querySelector('.popup__add-button-close');
-const buttonImageClose = document.querySelector('.popup__image-button-close');
 //content template
 const cardsContainer = document.querySelector('.elements');
-const cardTemplate = document.querySelector('.element-template').content;
 //profile popup variables
 const popupProfile = new PopupWithForm('.popup-profile-edit', updateProfile);
 const formProfile = document.querySelector('.popup__form');
-const profileName = document.querySelector('.profile__name');
-const profileDescription = document.querySelector('.profile__description');
 const formName = document.querySelector('.popup__edit_type_name');
 const formDesc = document.querySelector('.popup__edit_type_description');
 //content popup variables
@@ -83,21 +75,23 @@ section.renderItems()
 
 //card creation functions
 function createCardMarkup(data, cardTemplateSelector) {
+    //Я не совсем понимаю, как удалить cardTemplateSelector таким образом, чтобы код работал
     const card = new Card(data, cardTemplateSelector);
     return card.createCard();
 }
 
 
 function addCardToBeginning(data) {
-    const newCard = createCardMarkup(data, '.element-template');
-    newCard.querySelector('.element__image').addEventListener('click', () => { popupImage.open(newCard) })
+    const newCard = createCardMarkup(data, '.element-template', () => { popupImage.open(data) });
     return newCard
 }
 
 //form submit functions
 function updateProfile() {
-    event.preventDefault();
-    userInfo.setUserInfo(formName.value, formDesc.value)
+    //Я не совсем уверен в грамотности этой конструкции,
+    // но другого решения я пока не нашёл.
+    const data = popupProfile._getInputValues()
+    userInfo.setUserInfo(data['form-name'], data['form-description'])
     popupProfile.close();
 }
 
@@ -117,6 +111,7 @@ function copyProfilePopup(name, info) {
 //content popup listeners
 popupAdd.setEventListeners();
 buttonAdd.addEventListener('click', () => {
+    newCardValidator.enableValidation();
     popupAdd.open();
     newCardValidator.toggleButtonState()
 });
@@ -126,10 +121,8 @@ buttonAdd.addEventListener('click', () => {
 popupProfile.setEventListeners()
 buttonEdit.addEventListener('click', () => {
     const { name, info } = userInfo.getUserInfo()
-    console.log({ name, info })
     copyProfilePopup(name, info);
     popupProfile.open();
-    popupProfile.setEventListeners()
 });
 
 //image popup listeners
