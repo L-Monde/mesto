@@ -1,3 +1,7 @@
+//Кажется, на этот раз всё. Ну, или почти всё. 
+//Спасибо огромное за то, что так подробно объяснили ошибки!
+
+
 import { FormValidator } from '../components/FormValidator.js'
 import { Card } from '../components/Card.js'
 import { Popup } from '../components/Popup.js'
@@ -74,31 +78,31 @@ const section = new Section({ items: initialCards, renderer: addCardToBeginning 
 section.renderItems()
 
 //card creation functions
-function createCardMarkup(data, cardTemplateSelector) {
-    //Я не совсем понимаю, как удалить cardTemplateSelector таким образом, чтобы код работал
-    const card = new Card(data, cardTemplateSelector);
+function createCardMarkup(data) {
+    const card = new Card(
+        data,
+        '.element-template',
+        () => { popupImage.open(data) }
+    );
     return card.createCard();
 }
 
 
 function addCardToBeginning(data) {
-    const newCard = createCardMarkup(data, '.element-template', () => { popupImage.open(data) });
-    return newCard
+    const newCard = createCardMarkup(data);
+    section.addItem(newCard)
 }
 
 //form submit functions
-function updateProfile() {
-    //Я не совсем уверен в грамотности этой конструкции,
-    // но другого решения я пока не нашёл.
-    const data = popupProfile._getInputValues()
+function updateProfile(data) {
     userInfo.setUserInfo(data['form-name'], data['form-description'])
     popupProfile.close();
 }
 
-function updateContent() {
-    event.preventDefault();
-    const newElement = { name: placeName.value, link: placeImage.value }
-    cardsContainer.prepend(addCardToBeginning(newElement))
+function updateContent(data) {
+    data.name = data['place-name']
+    data.link = data['place-description']
+    section.addItem(createCardMarkup(data))
     popupAdd.close();
 }
 
@@ -111,7 +115,6 @@ function copyProfilePopup(name, info) {
 //content popup listeners
 popupAdd.setEventListeners();
 buttonAdd.addEventListener('click', () => {
-    newCardValidator.enableValidation();
     popupAdd.open();
     newCardValidator.toggleButtonState()
 });
