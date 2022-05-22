@@ -46,7 +46,9 @@
 @import url(../blocks/element/__info/element__info.css);
 @import url(../blocks/element/__name/element__name.css);
 @import url(../blocks/element/__button-delete/element__button-delete.css);
+@import url(../blocks/element/__likes/element__likes.css);
 @import url(../blocks/element/__button-like/element__button-like.css);
+@import url(../blocks/element/__likes-count/element__likes-count.css);
 @import url(../blocks/element/__button-like/_pressed/element__button-like_pressed.css);
 
 /*footer*/

@@ -1,37 +1,53 @@
-//Кажется, на этот раз всё. Ну, или почти всё. 
-//Спасибо огромное за то, что так подробно объяснили ошибки!
-
-
 import { FormValidator } from '../components/FormValidator.js'
 import { Card } from '../components/Card.js'
-import { Popup } from '../components/Popup.js'
 import { PopupWithForm } from '../components/PopupWithForm.js'
 import { Section } from '../components/Section.js';
 import './index.css';
 import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithConfirmation } from '../components/PopupWithConfirmation.js';
 import { UserInfo } from '../components/UserInfo.js';
+import { api } from '../components/Api.js'
 
 //buttons
 const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonAdd = document.querySelector('.profile__button-add');
-//content template
+//content variables
 const cardsContainer = document.querySelector('.elements');
-//profile popup variables
+const getCardsArray = api.getCardsArray();
+//profile popup v&o (variables and objects)
 const popupProfile = new PopupWithForm('.popup-profile-edit', updateProfile);
 const formProfile = document.querySelector('.popup__form');
 const formName = document.querySelector('.popup__edit_type_name');
 const formDesc = document.querySelector('.popup__edit_type_description');
-//content popup variables
+//content popup v&o
 const popupAdd = new PopupWithForm('.popup-add', updateContent);
 const formAdd = document.querySelector('.popup__form-add');
 const placeName = document.querySelector('.popup__edit_type_place-name');
 const placeImage = document.querySelector('.popup__edit_type_place-picture');
-//image popup stuff
-const popupImage = new PopupWithImage('.popup-image')
-    //user information
-const userInfo = new UserInfo({ nameSelector: '.profile__name', descriptionSelector: '.profile__description' })
+//confirmation popup
+const popupDelete = new PopupWithConfirmation('.popup-card-delete', handleConfirmationPopup)
 
-//validator variables and objects
+//image popup
+const popupImage = new PopupWithImage('.popup-image')
+
+//user information
+const userInfo = new UserInfo({ nameSelector: '.profile__name', descriptionSelector: '.profile__description' })
+const userServerInfo = api.getProfileInfo();
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-40/users/me', {
+        headers: {
+            authorization: 'f6e30d96-a451-4ec9-81ba-5b034a8c8256'
+        }
+    })
+    .then(res => res.json())
+fetch('https://mesto.nomoreparties.co/v1/cohort-40/cards', {
+        headers: {
+            authorization: 'f6e30d96-a451-4ec9-81ba-5b034a8c8256'
+        }
+    })
+    .then(res => res.json())
+
+//validator v&o
 const config = {
     formSelector: '.popup__form',
     editSelector: '.popup__edit',
@@ -45,64 +61,87 @@ const newCardValidator = new FormValidator(config, formAdd);
 profileValidator.enableValidation();
 newCardValidator.enableValidation();
 
+//here we take a cards array from the server and post in on the page
+const section = new Section({ renderer: createCardMarkup }, '.elements');
 
+function renderPage() {
+    Promise.all([userServerInfo, api.getCardsArray()])
+        .then(res => {
+            userInfo.setUserInfo(res[0].name, res[0].about)
+            section.renderItems(res[1])
 
-//cards array, page content loads from here
-const initialCards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-//this class fills the container with cards created by the class's callback
-const section = new Section({ items: initialCards, renderer: addCardToBeginning }, '.elements');
-section.renderItems()
+        })
+        .catch(err => console.log("Не удалось загрузить страницу:", err))
+}
+renderPage()
 
-//card creation functions
+//here we create card and add it into DOM
 function createCardMarkup(data) {
     const card = new Card(
         data,
         '.element-template',
-        () => { popupImage.open(data) }
+        userServerInfo, {
+            handleImageClick,
+            handleDeleteClick,
+            likeCard,
+            dislikeCard
+        }
     );
-    return card.createCard();
+    /* */
+    const newCard = card.createCard()
+    section.addItem(newCard)
+        //api.addNewCard(card._name, card._link)
+        //return;
 }
 
 
-function addCardToBeginning(data) {
-    const newCard = createCardMarkup(data);
-    section.addItem(newCard)
+//here we go through the likes functions
+function likeCard(elementID) {
+    return api.addCardLike(elementID)
+}
+
+function dislikeCard(elementID) {
+    return api.removeCardLike(elementID)
+}
+
+//here we process the image popup
+function handleImageClick(data) {
+    popupImage.open(data);
+}
+
+//here we delete the card from the server
+function handleConfirmationPopup(elementID) {
+    console.log('deleteTest')
+    api.deleteCard(elementID)
+
+    .catch(err => console.log("Не удалось удалить карточку:", err))
+    popupDelete.close()
+    renderPage()
+}
+
+function handleDeleteClick(elementID) {
+    popupDelete.open(elementID)
+        //handleConfirmationPopup(elementID)
 }
 
 //form submit functions
 function updateProfile(data) {
     userInfo.setUserInfo(data['form-name'], data['form-description'])
+    api.changeProfileInfo(data['form-name'], data['form-description'])
     popupProfile.close();
 }
 
 function updateContent(data) {
+    console.log(data)
     data.name = data['place-name']
     data.link = data['place-description']
-    section.addItem(createCardMarkup(data))
+    api.addNewCard(data.name, data.link)
+        .then(res => {
+            section.addItem(data)
+            popupAdd.close()
+        })
+        .catch(err => console.log("Не удалось добавить карточку:", err))
+        //section.addItem(createCardMarkup(data))
     popupAdd.close();
 }
 

@@ -1,18 +1,15 @@
 export class Section {
-    constructor({ items, renderer }, containerSelector) {
+    constructor({ renderer }, containerSelector) {
         this._container = document.querySelector(containerSelector)
-        this._items = items
         this._renderer = renderer
     }
 
-    renderItems() {
-        this._items.forEach((data) => {
+    renderItems(items) {
+        items.forEach(data => {
             this._renderer(data)
         })
     }
     addItem(element) {
-        this._container.prepend(element)
+        this._container.append(element)
     }
 }
-//Прошу прощения, что не исправил эту ошибку. Я пробовал разные подходы,
-//но не смог придумать другого способа.
