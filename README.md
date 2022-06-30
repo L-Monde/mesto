@@ -1,5 +1,5 @@
 # Проект: Место
-https://l-monde.github.io/russian-travel/
+https://l-monde.github.io/Mesto/
 Интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки.
 
 
