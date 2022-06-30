@@ -18,7 +18,6 @@ export class PopupWithConfirmation extends Popup {
     }
 
     setEventListeners() {
-        console.log('12345')
         super.setEventListeners()
         this._confirmButton.addEventListener('click', () => {
             this._confirm()
@@ -29,5 +28,13 @@ export class PopupWithConfirmation extends Popup {
         super.open()
         this._elementID = elementID
         this.setEventListeners()
+    }
+    loadingText(loading) {
+        if (loading) {
+            this._confirmButton.textContent = 'Сохранение...'
+        } else {
+            this._confirmButton.textContent = 'Даъ'
+
+        }
     }
 }

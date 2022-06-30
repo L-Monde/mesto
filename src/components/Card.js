@@ -43,7 +43,6 @@ export class Card {
         if (!hasLike) {
             this._likeCard(this._elementID)
                 .then(res => {
-                    console.log(res)
                     this._likesCount.textContent = res.likes.length
                     event.target.classList.add('element__button-like_pressed')
                 })
@@ -89,9 +88,3 @@ export class Card {
     }
 
 }
-/*
-popupPicture.src = this._link;
-popupPicture.alt = this._name;
-popupText.textContent = this._name;
-openPopup(popupImage);
-*/

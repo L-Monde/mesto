@@ -51,12 +51,12 @@ class Api {
 
     changeProfileAvatar(avatar) {
         return fetch(`${this._url}/users/me/avatar`, {
-            method: "PATCH",
+            method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                avatar,
-            }),
-        }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+                avatar
+            })
+        })
     }
 
 

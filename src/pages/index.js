@@ -11,10 +11,9 @@ import { api } from '../components/Api.js'
 //buttons
 const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonAdd = document.querySelector('.profile__button-add');
-//content variables
-const cardsContainer = document.querySelector('.elements');
-const getCardsArray = api.getCardsArray();
-//profile popup v&o (variables and objects)
+//some array I might not even need
+const cards = []
+    //profile popup v&o (variables and objects)
 const popupProfile = new PopupWithForm('.popup-profile-edit', updateProfile);
 const formProfile = document.querySelector('.popup__form');
 const formName = document.querySelector('.popup__edit_type_name');
@@ -26,26 +25,21 @@ const placeName = document.querySelector('.popup__edit_type_place-name');
 const placeImage = document.querySelector('.popup__edit_type_place-picture');
 //confirmation popup
 const popupDelete = new PopupWithConfirmation('.popup-card-delete', handleConfirmationPopup)
-
-//image popup
+    //image popup
 const popupImage = new PopupWithImage('.popup-image')
+    //avatar popup
+const avatar = document.querySelector('.profile__avatar')
+const popupAvatar = new PopupWithForm('.popup-avatar', updateAvatar)
+const formAvatar = document.querySelector('.popup__form-avatar')
 
 //user information
-const userInfo = new UserInfo({ nameSelector: '.profile__name', descriptionSelector: '.profile__description' })
+const userInfo = new UserInfo({
+    nameSelector: '.profile__name',
+    descriptionSelector: '.profile__description',
+    avatarSelector: '.profile__avatar'
+})
 const userServerInfo = api.getProfileInfo();
 
-fetch('https://mesto.nomoreparties.co/v1/cohort-40/users/me', {
-        headers: {
-            authorization: 'f6e30d96-a451-4ec9-81ba-5b034a8c8256'
-        }
-    })
-    .then(res => res.json())
-fetch('https://mesto.nomoreparties.co/v1/cohort-40/cards', {
-        headers: {
-            authorization: 'f6e30d96-a451-4ec9-81ba-5b034a8c8256'
-        }
-    })
-    .then(res => res.json())
 
 //validator v&o
 const config = {
@@ -58,8 +52,10 @@ const config = {
 };
 const profileValidator = new FormValidator(config, formProfile);
 const newCardValidator = new FormValidator(config, formAdd);
+const avatarValidator = new FormValidator(config, formAvatar);
 profileValidator.enableValidation();
 newCardValidator.enableValidation();
+avatarValidator.enableValidation();
 
 //here we take a cards array from the server and post in on the page
 const section = new Section({ renderer: createCardMarkup }, '.elements');
@@ -68,14 +64,15 @@ function renderPage() {
     Promise.all([userServerInfo, api.getCardsArray()])
         .then(res => {
             userInfo.setUserInfo(res[0].name, res[0].about)
+            userInfo.setAvatar(res[0].avatar)
             section.renderItems(res[1])
 
         })
         .catch(err => console.log("Не удалось загрузить страницу:", err))
 }
-renderPage()
 
-//here we create card and add it into DOM
+renderPage()
+    //here we create card and add it into DOM
 function createCardMarkup(data) {
     const card = new Card(
         data,
@@ -87,11 +84,9 @@ function createCardMarkup(data) {
             dislikeCard
         }
     );
-    /* */
     const newCard = card.createCard()
+    cards.push(card)
     section.addItem(newCard)
-        //api.addNewCard(card._name, card._link)
-        //return;
 }
 
 
@@ -109,40 +104,73 @@ function handleImageClick(data) {
     popupImage.open(data);
 }
 
-//here we delete the card from the server
+//here we delete the card from the server document.querySelector(elementID).closest('.element')
 function handleConfirmationPopup(elementID) {
-    console.log('deleteTest')
+    popupDelete.loadingText(true)
     api.deleteCard(elementID)
-
-    .catch(err => console.log("Не удалось удалить карточку:", err))
-    popupDelete.close()
-    renderPage()
+        .catch(err => console.log("Не удалось удалить карточку:", err))
+    let deleteTarget = cards.find((item) => item._elementID === elementID)
+    setTimeout(() => {
+        popupDelete.loadingText(false)
+        deleteTarget._deleteCard()
+        popupDelete.close()
+    }, 300)
 }
 
 function handleDeleteClick(elementID) {
     popupDelete.open(elementID)
-        //handleConfirmationPopup(elementID)
 }
 
 //form submit functions
+
 function updateProfile(data) {
+
     userInfo.setUserInfo(data['form-name'], data['form-description'])
     api.changeProfileInfo(data['form-name'], data['form-description'])
-    popupProfile.close();
+    setTimeout(() => {
+        popupProfile.close()
+        popupProfile.loadingText(false)
+    }, 300)
 }
 
 function updateContent(data) {
-    console.log(data)
-    data.name = data['place-name']
-    data.link = data['place-description']
-    api.addNewCard(data.name, data.link)
-        .then(res => {
-            section.addItem(data)
-            popupAdd.close()
+    popupAdd.loadingText(true)
+
+    api.addNewCard(data['place-name'], data['place-description'])
+        .then((res) => {
+            const card = new Card(
+                res,
+                '.element-template',
+                userServerInfo, {
+                    handleImageClick,
+                    handleDeleteClick,
+                    likeCard,
+                    dislikeCard
+                }
+            );
+            cards.push(card)
+            const newCard = card.createCard()
+            section.addItem2(newCard)
         })
-        .catch(err => console.log("Не удалось добавить карточку:", err))
-        //section.addItem(createCardMarkup(data))
-    popupAdd.close();
+    setTimeout(() => {
+        popupAdd.close()
+        popupAdd.loadingText(false)
+    }, 300)
+
+}
+
+function updateAvatar(data) {
+    popupAvatar.loadingText(true)
+    api.changeProfileAvatar(data.avatar)
+        .then((res) => {
+            console.log('avatarChangeNoReload')
+            userInfo.setAvatar(data.avatar)
+            setTimeout(() => {
+                popupAvatar.close()
+                popupAvatar.loadingText(false)
+            }, 300)
+        })
+        .catch(err => console.log("Не удалось сменить аватар:", err))
 }
 
 function copyProfilePopup(name, info) {
@@ -169,6 +197,11 @@ buttonEdit.addEventListener('click', () => {
 
 //image popup listeners
 popupImage.setEventListeners()
+    //avatar popup listeners
+popupAvatar.setEventListeners()
+avatar.addEventListener('click', () => (
+    popupAvatar.open()
+))
 
 
 
