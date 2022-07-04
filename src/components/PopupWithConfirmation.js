@@ -27,6 +27,10 @@ export class PopupWithConfirmation extends Popup {
         this._elementID = elementID
         this.setEventListeners()
     }
+    close() {
+        super.close()
+        this.removeEventListeners()
+    }
     loadingText(loading) {
         if (loading) {
             this._confirmButton.textContent = 'Сохранение...'

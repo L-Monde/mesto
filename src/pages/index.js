@@ -7,30 +7,29 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithConfirmation } from '../components/PopupWithConfirmation.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { api } from '../components/Api.js'
+import {
+    buttonEdit,
+    buttonAdd,
+    cards,
+    formProfile,
+    formName,
+    formDesc,
+    formAdd,
+    avatarOverlay,
+    formAvatar,
+    config
+} from '../utils/constants.js'
 
-//buttons
-const buttonEdit = document.querySelector('.profile__button-edit');
-const buttonAdd = document.querySelector('.profile__button-add');
-//some array I might not even need
-const cards = []
-    //profile popup v&o (variables and objects)
+//profile popup v&o (variables and objects)
 const popupProfile = new PopupWithForm('.popup-profile-edit', updateProfile);
-const formProfile = document.querySelector('.popup__form');
-const formName = document.querySelector('.popup__edit_type_name');
-const formDesc = document.querySelector('.popup__edit_type_description');
 //content popup v&o
 const popupAdd = new PopupWithForm('.popup-add', updateContent);
-const formAdd = document.querySelector('.popup__form-add');
-const placeName = document.querySelector('.popup__edit_type_place-name');
-const placeImage = document.querySelector('.popup__edit_type_place-picture');
 //confirmation popup
 const popupDelete = new PopupWithConfirmation('.popup-card-delete', handleConfirmationPopup)
     //image popup
 const popupImage = new PopupWithImage('.popup-image')
     //avatar popup
-const avatar = document.querySelector('.profile__avatar')
 const popupAvatar = new PopupWithForm('.popup-avatar', updateAvatar)
-const formAvatar = document.querySelector('.popup__form-avatar')
 
 //user information
 let userID
@@ -44,14 +43,6 @@ console.log(userServerInfo)
 
 
 //validator v&o
-const config = {
-    formSelector: '.popup__form',
-    editSelector: '.popup__edit',
-    submitButtonSelector: '.popup__button-submit',
-    inactiveButtonClass: 'popup__button-submit:disabled',
-    inputErrorClass: 'popup__edit_error',
-    errorClass: 'popup__error_visible'
-};
 const profileValidator = new FormValidator(config, formProfile);
 const newCardValidator = new FormValidator(config, formAdd);
 const avatarValidator = new FormValidator(config, formAvatar);
@@ -111,7 +102,7 @@ function handleImageClick(data) {
     popupImage.open(data);
 }
 
-//here we delete the card from the server document.querySelector(elementID).closest('.element')
+//here we delete the card from the server
 function handleConfirmationPopup(elementID) {
     popupDelete.loadingText(true)
     api.deleteCard(elementID)
@@ -120,12 +111,11 @@ function handleConfirmationPopup(elementID) {
                 const deleteTarget = cards.find((item) => item._elementID === elementID)
                 deleteTarget.deleteCard()
             }, 300)
+            popupDelete.close()
         })
         .catch(err => console.log("Не удалось удалить карточку:", err))
         .finally(() => {
             popupDelete.loadingText(false)
-            popupDelete.removeEventListeners()
-            popupDelete.close()
 
         })
 
@@ -141,16 +131,16 @@ function updateProfile(data) {
     popupProfile.loadingText(true)
     api.changeProfileInfo(data['form-name'], data['form-description'])
         .then(res => {
-            userInfo.setUserInfo(data['form-name'], data['form-description']);
-        }, reason => {
-            console.error(reason);
-        })
-        .catch(err => console.log("Не удалось :", err))
-        .finally(() => {
+                userInfo.setUserInfo(data['form-name'], data['form-description']);
+            }, reason => {
+                console.error(reason);
+            },
             setTimeout(() => {
                 popupProfile.close()
-                popupProfile.loadingText(false)
-            }, 300)
+            }, 300))
+        .catch(err => console.log("Не удалось :", err))
+        .finally(() => {
+            popupProfile.loadingText(false)
         });
 }
 
@@ -159,17 +149,17 @@ function updateContent(data) {
 
     api.addNewCard(data['place-name'], data['place-description'])
         .then((res) => {
-            const newCard = createNewCard(res)
-            section.addItem2(newCard)
-        }, reason => {
-            console.error(reason);
-        })
-        .catch(err => console.log("Не удалось :", err))
-        .finally(() => {
+                const newCard = createNewCard(res)
+                section.addItem2(newCard)
+            }, reason => {
+                console.error(reason);
+            },
             setTimeout(() => {
                 popupAdd.close()
-                popupAdd.loadingText(false)
-            }, 300)
+            }, 300))
+        .catch(err => console.log("Не удалось :", err))
+        .finally(() => {
+            popupAdd.loadingText(false)
         })
 }
 
@@ -177,16 +167,16 @@ function updateAvatar(data) {
     popupAvatar.loadingText(true)
     api.changeProfileAvatar(data.avatar)
         .then((res) => {
-            userInfo.setAvatar(data.avatar)
-        }, reason => {
-            console.error(reason);
-        })
-        .catch(err => console.log("Не удалось сменить аватар:", err))
-        .finally(() => {
+                userInfo.setAvatar(data.avatar)
+            }, reason => {
+                console.error(reason);
+            },
             setTimeout(() => {
                 popupAvatar.close()
-                popupAvatar.loadingText(false)
-            }, 300)
+            }, 300))
+        .catch(err => console.log("Не удалось сменить аватар:", err))
+        .finally(() => {
+            popupAvatar.loadingText(false)
         })
 }
 
@@ -217,7 +207,7 @@ buttonEdit.addEventListener('click', () => {
 popupImage.setEventListeners()
     //avatar popup listeners
 popupAvatar.setEventListeners()
-avatar.addEventListener('click', () => (
+avatarOverlay.addEventListener('click', () => (
     avatarValidator.resetValidation(),
     popupAvatar.open()
 ))
