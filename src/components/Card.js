@@ -1,5 +1,5 @@
 export class Card {
-    constructor(data, cardTemplateSelector, userInfo, { handleImageClick, handleDeleteClick, likeCard, dislikeCard }) {
+    constructor(data, cardTemplateSelector, userID, { handleImageClick, handleDeleteClick, likeCard, dislikeCard }) {
         this._cardTemplate = document.querySelector(cardTemplateSelector).content.querySelector('.element')
         this._name = data.name;
         this._link = data.link;
@@ -9,7 +9,7 @@ export class Card {
         this._dislikeCard = dislikeCard;
         this._likes = data.likes;
         this._elementID = data._id;
-        this._userInfo = userInfo
+        this._userID = userID;
         this._ownerId = data.owner._id
     }
 
@@ -26,14 +26,11 @@ export class Card {
         this._newCardImage.alt = this._name;
         const deleteButton = this._newCard.querySelector('.element__button-delete');
         this._newCardImage.src = this._link;
-        this._userInfo.then(res => {
-            if (res._id !== this._ownerId) {
-                deleteButton.remove()
-            }
-        })
         this._setEventListeners();
         this._checkLikes();
-
+        if (this._userID !== this._ownerId) {
+            deleteButton.remove()
+        }
         return this._newCard
     }
 
@@ -57,12 +54,10 @@ export class Card {
         }
     }
     _checkLikes() {
-        this._userInfo.then(res => {
-            this._likes.forEach(item => {
-                if (item._id === res._id) {
-                    this._likeButton.classList.add('element__button-like_pressed')
-                }
-            })
+        this._likes.forEach(item => {
+            if (item._id === this._userID) {
+                this._likeButton.classList.add('element__button-like_pressed')
+            }
         })
     }
 
@@ -70,7 +65,7 @@ export class Card {
 
 
 
-    _deleteCard = () => {
+    deleteCard = () => {
         this._newCard.remove()
             //this._newCard = null
     }

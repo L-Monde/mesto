@@ -33,12 +33,14 @@ const popupAvatar = new PopupWithForm('.popup-avatar', updateAvatar)
 const formAvatar = document.querySelector('.popup__form-avatar')
 
 //user information
+let userID
 const userInfo = new UserInfo({
     nameSelector: '.profile__name',
     descriptionSelector: '.profile__description',
     avatarSelector: '.profile__avatar'
 })
-const userServerInfo = api.getProfileInfo();
+const userServerInfo = api.getProfileInfo()
+console.log(userServerInfo)
 
 
 //validator v&o
@@ -64,28 +66,33 @@ function renderPage() {
     Promise.all([userServerInfo, api.getCardsArray()])
         .then(res => {
             userInfo.setUserInfo(res[0].name, res[0].about)
+            userID = res[0]._id
             userInfo.setAvatar(res[0].avatar)
             section.renderItems(res[1])
-
         })
         .catch(err => console.log("Не удалось загрузить страницу:", err))
 }
 
 renderPage()
     //here we create card and add it into DOM
-function createCardMarkup(data) {
+function createNewCard(data) {
     const card = new Card(
         data,
         '.element-template',
-        userServerInfo, {
+        userID, {
             handleImageClick,
             handleDeleteClick,
             likeCard,
             dislikeCard
         }
     );
-    const newCard = card.createCard()
     cards.push(card)
+    const newCard = card.createCard()
+    return newCard
+}
+
+function createCardMarkup(data) {
+    const newCard = createNewCard(data)
     section.addItem(newCard)
 }
 
@@ -108,13 +115,20 @@ function handleImageClick(data) {
 function handleConfirmationPopup(elementID) {
     popupDelete.loadingText(true)
     api.deleteCard(elementID)
+        .then(() => {
+            setTimeout(() => {
+                const deleteTarget = cards.find((item) => item._elementID === elementID)
+                deleteTarget.deleteCard()
+            }, 300)
+        })
         .catch(err => console.log("Не удалось удалить карточку:", err))
-    let deleteTarget = cards.find((item) => item._elementID === elementID)
-    setTimeout(() => {
-        popupDelete.loadingText(false)
-        deleteTarget._deleteCard()
-        popupDelete.close()
-    }, 300)
+        .finally(() => {
+            popupDelete.loadingText(false)
+            popupDelete.removeEventListeners()
+            popupDelete.close()
+
+        })
+
 }
 
 function handleDeleteClick(elementID) {
@@ -124,13 +138,20 @@ function handleDeleteClick(elementID) {
 //form submit functions
 
 function updateProfile(data) {
-
-    userInfo.setUserInfo(data['form-name'], data['form-description'])
+    popupProfile.loadingText(true)
     api.changeProfileInfo(data['form-name'], data['form-description'])
-    setTimeout(() => {
-        popupProfile.close()
-        popupProfile.loadingText(false)
-    }, 300)
+        .then(res => {
+            userInfo.setUserInfo(data['form-name'], data['form-description']);
+        }, reason => {
+            console.error(reason);
+        })
+        .catch(err => console.log("Не удалось :", err))
+        .finally(() => {
+            setTimeout(() => {
+                popupProfile.close()
+                popupProfile.loadingText(false)
+            }, 300)
+        });
 }
 
 function updateContent(data) {
@@ -138,39 +159,35 @@ function updateContent(data) {
 
     api.addNewCard(data['place-name'], data['place-description'])
         .then((res) => {
-            const card = new Card(
-                res,
-                '.element-template',
-                userServerInfo, {
-                    handleImageClick,
-                    handleDeleteClick,
-                    likeCard,
-                    dislikeCard
-                }
-            );
-            cards.push(card)
-            const newCard = card.createCard()
+            const newCard = createNewCard(res)
             section.addItem2(newCard)
+        }, reason => {
+            console.error(reason);
         })
-    setTimeout(() => {
-        popupAdd.close()
-        popupAdd.loadingText(false)
-    }, 300)
-
+        .catch(err => console.log("Не удалось :", err))
+        .finally(() => {
+            setTimeout(() => {
+                popupAdd.close()
+                popupAdd.loadingText(false)
+            }, 300)
+        })
 }
 
 function updateAvatar(data) {
     popupAvatar.loadingText(true)
     api.changeProfileAvatar(data.avatar)
         .then((res) => {
-            console.log('avatarChangeNoReload')
             userInfo.setAvatar(data.avatar)
+        }, reason => {
+            console.error(reason);
+        })
+        .catch(err => console.log("Не удалось сменить аватар:", err))
+        .finally(() => {
             setTimeout(() => {
                 popupAvatar.close()
                 popupAvatar.loadingText(false)
             }, 300)
         })
-        .catch(err => console.log("Не удалось сменить аватар:", err))
 }
 
 function copyProfilePopup(name, info) {
@@ -182,8 +199,8 @@ function copyProfilePopup(name, info) {
 //content popup listeners
 popupAdd.setEventListeners();
 buttonAdd.addEventListener('click', () => {
+    newCardValidator.resetValidation();
     popupAdd.open();
-    newCardValidator.toggleButtonState()
 });
 
 
@@ -191,7 +208,8 @@ buttonAdd.addEventListener('click', () => {
 popupProfile.setEventListeners()
 buttonEdit.addEventListener('click', () => {
     const { name, info } = userInfo.getUserInfo()
-    copyProfilePopup(name, info);
+    profileValidator.resetValidation()
+    copyProfilePopup(name, info)
     popupProfile.open();
 });
 
@@ -200,6 +218,7 @@ popupImage.setEventListeners()
     //avatar popup listeners
 popupAvatar.setEventListeners()
 avatar.addEventListener('click', () => (
+    avatarValidator.resetValidation(),
     popupAvatar.open()
 ))
 

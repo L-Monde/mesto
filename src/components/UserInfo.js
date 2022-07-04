@@ -18,11 +18,3 @@ export class UserInfo {
         this._avatar.src = avatar
     }
 }
-/*
-function copyProfilePopup() {
-    formName.value = this._name.textContent;
-    formDesc.value = this._info.textContent;
-}
-const formName = document.querySelector('.popup__edit_type_name');
-const formDesc = document.querySelector('.popup__edit_type_description');
-*/

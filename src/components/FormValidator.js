@@ -12,6 +12,13 @@ export class FormValidator {
         });
         this._setEventListeners();
     }
+    resetValidation() {
+        this.toggleButtonState();
+        this._editList.forEach((editItem) => {
+            this._hideInputError(editItem)
+        });
+
+    }
 
 
     toggleButtonState() {

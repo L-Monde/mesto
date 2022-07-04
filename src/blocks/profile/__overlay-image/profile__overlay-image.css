@@ -1,0 +1,11 @@
+.profile__overlay-image {
+    min-height: 24px;
+    min-width: 24px;
+    width: fit-content;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    top: 40%;
+    transition: background-image .8s linear;
+}

@@ -9,19 +9,17 @@ export class PopupWithConfirmation extends Popup {
     }
 
     _confirm() {
+        console.log('123')
         this._handlePopupConfirm(this._elementID)
     }
 
-    _removeEventListeners() {
-        super._removeEventListeners()
+    removeEventListeners() {
         this._confirmButton.removeEventListener('click', this._confirm)
     }
 
     setEventListeners() {
         super.setEventListeners()
-        this._confirmButton.addEventListener('click', () => {
-            this._confirm()
-        })
+        this._confirmButton.addEventListener('click', this._confirm)
     }
 
     open(elementID) {

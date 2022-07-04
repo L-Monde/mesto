@@ -5,10 +5,16 @@ class Api {
     }
 
     //card manipulation methods
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(res.status)
+    }
     getCardsArray() {
         return fetch(`${this._url}/cards`, {
             headers: this._headers,
-        }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+        }).then(this._checkResponse);
     }
     addNewCard(name, link) {
         return fetch(`${this._url}/cards`, {
@@ -18,20 +24,20 @@ class Api {
                 name,
                 link,
             }),
-        }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+        }).then(this._checkResponse);
     }
     deleteCard(id) {
         return fetch(`${this._url}/cards/${id}`, {
             method: "DELETE",
             headers: this._headers,
-        }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+        }).then(this._checkResponse);
     }
 
     //profile edition methods
     getProfileInfo() {
         return fetch(`${this._url}/users/me`, {
             headers: this._headers,
-        }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+        }).then(this._checkResponse);
     }
     changeProfileInfo(name, about) {
         return fetch(`${this._url}/users/me`, {
@@ -41,12 +47,12 @@ class Api {
                 name,
                 about,
             }),
-        }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+        }).then(this._checkResponse);
     }
     getProfileAvatar() {
         return fetch(`${this._url}/users/me`, {
             headers: this._headers,
-        }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+        }).then(this._checkResponse);
     }
 
     changeProfileAvatar(avatar) {
@@ -56,7 +62,7 @@ class Api {
             body: JSON.stringify({
                 avatar
             })
-        })
+        }).then(this._checkResponse);
     }
 
 
@@ -65,13 +71,13 @@ class Api {
         return fetch(`${this._url}/cards/${id}/likes`, {
             method: "PUT",
             headers: this._headers,
-        }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+        }).then(this._checkResponse);
     }
     removeCardLike(id) {
         return fetch(`${this._url}/cards/${id}/likes`, {
             method: "DELETE",
             headers: this._headers,
-        }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+        }).then(this._checkResponse);
     }
 }
 
