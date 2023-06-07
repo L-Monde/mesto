@@ -13,3 +13,4 @@ __Внесённые изменения:__
 
 
 
+![screen1](https://github.com/L-Monde/mesto/assets/92000850/3d36088b-00c7-44fc-af29-91d787bf205f)
