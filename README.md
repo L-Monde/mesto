@@ -11,7 +11,5 @@ __Внесённые изменения:__
 
 * Использованы flexbox и grid layout для некоторых секций
 
-![image](https://github.com/L-Monde/mesto/assets/92000850/49401df4-5ab1-4e46-b725-4b4c5546543b)
-![image](https://github.com/L-Monde/mesto/assets/92000850/cbe3b59a-f3b4-4a20-b231-859864748168)
 
 
